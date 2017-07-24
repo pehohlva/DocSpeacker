@@ -1,0 +1,11 @@
+
+Alert:
+bin macdeployqt not copy plugin texttospeech inside the bundle macosx after make dmg image or installer
+activate qt qt@5.5 from brew install 
+#  active qt QTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQT
+export PATH="/usr/local/opt/qt@5.5/bin:$PATH"
+#  active qt QTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQT
+
+install inside qt@5.5 plugin & framework https://github.com/qt/qtspeech 
+
+
