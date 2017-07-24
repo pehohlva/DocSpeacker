@@ -1,0 +1,6 @@
+
+here pwd:
+git clone https://github.com/qt/qtspeech.git
+qmake qtspeech.pro
+make
+sudo make install
