@@ -1,6 +1,7 @@
 
 Alert:
-bin macdeployqt not copy plugin texttospeech inside the bundle macosx after make dmg image or installer
+bin macdeployqt not copy plugin texttospeech inside the bundle macosx 
+(from shell copy or script sh) after make dmg image or installer
 activate qt qt@5.5 from brew install 
 #  active qt QTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQTQT
 export PATH="/usr/local/opt/qt@5.5/bin:$PATH"
