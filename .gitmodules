@@ -1,0 +1,3 @@
+[submodule "3rdparty/qtpdfium"]
+	path = 3rdparty/qtpdfium
+	url = https://github.com/paulovap/qtpdfium.git
