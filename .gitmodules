@@ -1,3 +1,6 @@
 [submodule "3rdparty/qtpdfium"]
 	path = 3rdparty/qtpdfium
 	url = https://github.com/paulovap/qtpdfium.git
+[submodule "3rdparty/qtspeech"]
+	path = 3rdparty/qtspeech
+	url = https://github.com/qt/qtspeech.git
