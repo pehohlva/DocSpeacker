@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = _docrec
 TEMPLATE = lib
 CONFIG += staticlib
-CONFIG += c++11 release
+CONFIG += c++11 release QMAKE_CXXFLAGS_WARN_ON=-w QMAKE_CFLAGS_WARN_ON=-w
 LIBS += -lz
 MOC_DIR = buildlib
 RCC_DIR = buildlib
