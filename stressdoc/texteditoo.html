@@ -1,0 +1,302 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice 4.1.2  (Unix)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGEDBY" CONTENT="ppk ppk">
+	<META NAME="CHANGED" CONTENT="20080917;11324300">
+	<META NAME="Info 1" CONTENT="">
+	<META NAME="Info 2" CONTENT="">
+	<META NAME="Info 3" CONTENT="">
+	<META NAME="Info 4" CONTENT="">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P ALIGN=CENTER STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+  <FONT FACE="Sans"><FONT SIZE=5 STYLE="font-size: 20pt"><B>QTextEdit</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+<FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">The QTextEdit
+widget is an advanced editor that supports formatted rich text. It
+can be used to display HTML and other rich document formats.
+Internally, QTextEdit uses the QTextDocument class to describe both
+the high-level structure of each document and the low-level
+formatting of paragraphs.</FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm"><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">If
+you are viewing this document in the </FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><I>textedit</I></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">
+demo, you can edit this document to explore Qt's rich text editing
+features. We have included some comments in each of the following
+sections to encourage you to experiment.  </FONT></FONT></SPAN>
+</P>
+<P STYLE="margin-top: 0.42cm; margin-bottom: 0.32cm; text-decoration: none">
+<FONT FACE="Sans"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Font and
+Paragraph Styles</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm"><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">QTextEdit
+supports </FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><B>bold</B></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">,
+</FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><I>italic</I></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">,
+and </FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><U>underlined</U></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">
+font styles, and can display </FONT></FONT></SPAN><FONT COLOR="#00007f"><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><B>multicolored</B></FONT></FONT></SPAN></FONT><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></SPAN><FONT COLOR="#aa0000"><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><B>text</B></FONT></FONT></SPAN></FONT><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">.
+Font families such as </FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Times"><FONT SIZE=2 STYLE="font-size: 11pt"><B>Times
+New Roman</B></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">
+and </FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Courier"><FONT SIZE=2 STYLE="font-size: 11pt"><B>Courier</B></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">
+can also be used directly. </FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><I>If
+you place the cursor in a region of styled text, the controls in the
+tool bars will change to reflect the current style.</I></FONT></FONT></SPAN></P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+<FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Paragraphs can
+be formatted so that the text is left-aligned, right-aligned,
+centered, or fully justified.</FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm"><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><I>Try
+changing the alignment of some text and resize the editor to see how
+the text layout changes.</I></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></SPAN>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+<FONT FACE="Sans"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Lists</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+<FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Different
+kinds of lists can be included in rich text documents. Standard
+bullet lists can be nested, using different symbols for each level of
+the list: </FONT></FONT>
+</P>
+<UL>
+	<LI><P STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+	<FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Disc symbols
+	are typically used for top-level list items. </FONT></FONT>
+	</P>
+</UL>
+<OL>
+	<UL>
+		<LI><P STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+		<FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Circle
+		symbols can be used to distinguish between items in lower-level
+		lists.</FONT></FONT></P>
+	</UL>
+</OL>
+<OL>
+	<OL>
+		<UL>
+			<LI><P STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+			<FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Square
+			symbols provide a reasonable alternative to discs and circles. </FONT></FONT>
+			</P>
+		</UL>
+	</OL>
+</OL>
+<P STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+<FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Ordered lists
+can be created that can be used for tables of contents. Different
+characters can be used to enumerate items, and we can use both Roman
+and Arabic numerals in the same list structure: </FONT></FONT>
+</P>
+<OL>
+	<LI><P STYLE="margin-top: 0.32cm; margin-bottom: 0cm; text-decoration: none">
+	<FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Introduction</FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0.32cm; text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Qt
+	Tools </FONT></FONT>
+	</P>
+</OL>
+<OL>
+	<OL TYPE=a>
+		<LI><P STYLE="margin-top: 0.32cm; margin-bottom: 0cm; text-decoration: none">
+		<FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Qt Assistant</FONT></FONT></P>
+		<LI><P STYLE="margin-bottom: 0cm; text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Qt
+		Designer</FONT></FONT></P>
+	</OL>
+</OL>
+<OL>
+	<OL>
+		<OL TYPE=A>
+			<LI><P STYLE="margin-bottom: 0cm; text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Form
+			Editor</FONT></FONT></P>
+			<LI><P STYLE="margin-bottom: 0cm; text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Component
+			Architecture</FONT></FONT></P>
+		</OL>
+	</OL>
+</OL>
+<OL>
+	<OL TYPE=a START=3>
+		<LI><P STYLE="margin-bottom: 0.32cm; text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Qt
+		Linguist</FONT></FONT></P>
+	</OL>
+</OL>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">The
+list will automatically be renumbered if you add or remove items. </FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><I>Try
+adding new sections to the above list or removing existing item to
+see the numbers change.</I></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></SPAN>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0.32cm; text-decoration: none"><FONT FACE="Sans"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Images</B></FONT></FONT></P>
+<P STYLE="margin-bottom: 0.32cm; text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Inline
+images are treated like ordinary ranges of characters in the text
+editor, so they flow with the surrounding text. Images can also be
+selected in the same way as text, making it easy to cut, copy, and
+paste them. </FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm"><IMG SRC="texteditoo_html_m33de7a61.png" NAME=":/images/logo32.png" ALIGN=BOTTOM WIDTH=74 HEIGHT=37 BORDER=0>
+<SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><I>Try
+to select this image by clicking and dragging over it with the mouse,
+or use the text cursor to select it by holding down Shift and using
+the arrow keys. You can then cut or copy it, and pasting it into
+different parts of this document.</I></FONT></FONT></SPAN></P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+<FONT FACE="Sans"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Tables</B></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+<FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">QTextEdit can
+arrange and format tables, supporting features such as row and column
+spans, text formatting within cells, and size constraints for
+columns. </FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<TABLE WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0>
+	<COL WIDTH=64*>
+	<COL WIDTH=64*>
+	<COL WIDTH=64*>
+	<COL WIDTH=64*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT STYLE="text-decoration: none"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt"><B>Development
+			Tools </B></FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt"><B>Programming
+			Techniques </B></FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt"><B>Graphical
+			User Interfaces </B></FONT></FONT>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt"><B>9:00
+			- 11:00 </B></FONT></FONT>
+			</P>
+		</TD>
+		<TD COLSPAN=3 WIDTH=75%>
+			<P ALIGN=CENTER><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt">Introduction
+			to </FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt"><I>Qt
+			</I></FONT></FONT></SPAN>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt"><B>11:00
+			- 13:00 </B></FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt">Using
+			</FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt"><I>qmake</I></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt">
+			</FONT></FONT></SPAN>
+			</P>
+		</TD>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt">Object-oriented
+			Programming </FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt">Layouts
+			in </FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt"><I>Qt</I></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt">
+			</FONT></FONT></SPAN>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt"><B>13:00
+			- 15:00 </B></FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt"><I>Qt
+			Designer</I></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt">
+			Tutorial </FONT></FONT></SPAN>
+			</P>
+		</TD>
+		<TD ROWSPAN=2 WIDTH=25%>
+			<P ALIGN=LEFT STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt">Extreme
+			Programming </FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt">Writing
+			<FONT COLOR="#ffffff"><SPAN STYLE="background: #2323dc">Custom</SPAN></FONT>
+			Styles </FONT></FONT>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt"><B>15:00
+			- 17:00 </B></FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt"><I>Qt
+			Linguist</I></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 9pt">
+			and Internationalization </FONT></FONT></SPAN>
+			</P>
+		</TD>
+		<TD WIDTH=25%>
+			<P ALIGN=LEFT><BR>
+			</P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+<FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><I>Try adding
+text to the cells in the table and experiment with the alignment of
+the paragraphs.</I></FONT></FONT></P>
+<P STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+<FONT FACE="Sans"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Hyperlinks</B></FONT></FONT></P>
+<P STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm"><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">QTextEdit
+is designed to support hyperlinks between documents, and this feature
+is used extensively in </FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><I>Qt
+Assistant</I></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">.
+Hyperlinks are automatically created when an HTML file is imported
+into an editor. Since the rich text framework supports hyperlinks
+natively, they can also be created programatically.</FONT></FONT></SPAN></P>
+<P STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+<FONT FACE="Sans"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Undo and
+Redo</B></FONT></FONT></P>
+<P STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm; text-decoration: none">
+<FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">Full support
+for undo and redo operations is built into QTextEdit and the
+underlying rich text framework. Operations on a document can be
+packaged together to make editing a more comfortable experience for
+the user.</FONT></FONT></P>
+<P STYLE="margin-top: 0.32cm; margin-bottom: 0.32cm"><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt"><I>Try
+making changes to this document and press Ctrl+Z to undo them. You
+can always recover  the original contents of the document.</I></FONT></FONT></SPAN><SPAN STYLE="text-decoration: none"><FONT FACE="Sans"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></SPAN>
+</P>
+</BODY>
+</HTML>
