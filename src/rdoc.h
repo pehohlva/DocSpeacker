@@ -1,6 +1,7 @@
 #ifndef RDOC_H
 #define RDOC_H
 #include "documenthandler.h"
+#include <QFileDialog>
 
 
 #define rdoc  (static_cast<RDoc*>(QCoreApplication::instance()))
@@ -12,6 +13,7 @@ class RDoc : public QApplication
 public:
     RDoc(int &argc, char **argv );
     bool event (QEvent *event);
+    //// void  openDiskFile();
 
 signals:
 
@@ -23,6 +25,7 @@ signals:
 public slots:
      void speechtext(QString);
      void openFile(QString);
+     void  openDiskFile();
 
 private:
   DocumentHandler *docs;

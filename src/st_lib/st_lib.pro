@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-message( “Only for Mac OS X convert document specific. ” )
+message( “Only for Mac OS X convert document specific. textutil from apple doc convert to text” )
 
 QT       += core gui xml concurrent pdfium
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

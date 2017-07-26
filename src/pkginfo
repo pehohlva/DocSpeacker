@@ -1,0 +1,6 @@
+PKG=SUNWcadap
+NAME=DocSpeacker to read and speack document from many format.
+ARCH=osx
+VERSION=release 1.0
+CATEGORY=system
+BASEDIR=/Applications

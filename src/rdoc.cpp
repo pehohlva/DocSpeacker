@@ -20,6 +20,7 @@ RDoc::RDoc( int &argc, char **argv)
   //// http://doc.qt.io/archives/qt-5.5/qmenu.html#setAsDockMenu
   QMenu *macdocks = new QMenu();  //// menu by mac bar icons
   macdocks->addAction(tr("&Mac Exit Test"),this, SLOT(quit()));
+  macdocks->addAction(tr("&Mac Open Document.."),this, SLOT(openDiskFile()));
   macdocks->addSeparator();
   qt_mac_set_dock_menu(macdocks);
   const int screenactive = this->desktop()->screenCount();
@@ -62,10 +63,24 @@ void  RDoc::speechtext(const QString t)
   tex->setText(t);
 }
 
+void  RDoc::openDiskFile()
+{
+    qDebug() << "### openDiskFile ";
+    QString fileName = QFileDialog::getOpenFileName( win,
+        tr("Open File to read"),QDir::homePath(), tr("Files (*)"));
+
+      /// QFileDialog::setFileMode(QFileDialog::ExistingFile);
+      //// QFileDialog::setFilter(QDir::Files);
+
+    if ( fileName.size()  > 0 ) {
+        this->openFile(fileName);
+      }
+}
+
 void  RDoc::openFile(const QString f)
 {
       qDebug() << "### openFile " <<  f;
-      emit insert_text(QString("New file incomming %1..").arg(f));
+      ////// emit insert_text(QString("New file incomming %1..").arg(f));
       emit sendstatus(QString("New file incomming %1..").arg(f));
       docs->openDoc(f);
 }
@@ -77,6 +92,7 @@ bool RDoc::event (QEvent *event) {
        {
        // Get the path of the file that we want to open
        const QString  file_path = static_cast<QFileOpenEvent *> (event)->file();
+       qDebug() << "### file_path: >>  " << file_path;
        emit signalFileOpen(file_path);
        } else {
          // The system requested us to do another thing, so we just follow the rules
