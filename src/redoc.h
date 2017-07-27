@@ -1,7 +1,10 @@
 #ifndef RDOC_H
 #define RDOC_H
 #include "documenthandler.h"
-#include <QFileDialog>
+#include "remainwin.h"
+#include "re_application_setting.h"
+
+
 
 
 #define rdoc  (static_cast<RDoc*>(QCoreApplication::instance()))
@@ -16,7 +19,7 @@ public:
     //// void  openDiskFile();
 
 signals:
-
+     void eventLog(QString);
      void signalFileOpen(QString);
      void readtext();
      void sendstatus(QString);
@@ -25,11 +28,14 @@ signals:
 public slots:
      void speechtext(QString);
      void openFile(QString);
-     void  openDiskFile();
+     void loginternal(QString);
+     void openDiskFile();
+     void prepare_to_close();
 
 private:
+  
   DocumentHandler *docs;
-  QMainWindow *win;
+  MainWin *win;
   QMdiArea *workspace;
   QTextEdit *textEdit;
   QLabel  *StatusApp; //// set text here

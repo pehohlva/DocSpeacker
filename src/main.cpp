@@ -1,5 +1,5 @@
 #include "documenthandler.h"
-#include "rdoc.h"
+#include "redoc.h"
 
 int main(int argc, char *argv[])
 {

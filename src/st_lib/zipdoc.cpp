@@ -1197,6 +1197,7 @@ ZipDoc::ZipDoc() {
 }
 
 QString ZipDoc::simple_open( const QString file ) {
+  text_s = QString("Not possibel to load Document:%1").arg(file);
   QMimeDatabase mimeDatabase;
   QMimeType mimeType;
   /*  https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/textutil.1.html   */
@@ -1216,6 +1217,7 @@ QString ZipDoc::simple_open( const QString file ) {
             extension == "wordml" || extension == "doc" ||
             extension == "rtfd" || extension == "webarchive") {
              this->handler_txtutils(file);
+             //// xml html all here and strip tag
         } else if (mimeType.inherits("text/plain")) {
              this->handler_text_plain(file);
         } else if (extension == "odt") {
@@ -1235,14 +1237,16 @@ QString ZipDoc::simple_open( const QString file ) {
 }
 
 void ZipDoc::handler_text_plain( const QString file ) {
+	 qDebug() << "### handler use-> " <<  __FUNCTION__;
      ram->LoadFile(file);
      const QByteArray base = ram->stream();
      if (base.size() > 0 ) {
-        text_s = QString(base.data());
+        text_s =  this->strip_tag(base);
      }
 }
 
 void ZipDoc::handler_html( const QString file ) {
+	  qDebug() << "### handler use-> " <<  __FUNCTION__;
       ram->LoadFile(file);
       const QByteArray base = ram->stream();
        if (base.size() > 0 ) {
@@ -1252,6 +1256,7 @@ void ZipDoc::handler_html( const QString file ) {
 }
 
 void ZipDoc::handler_pdf( const QString file ) {
+	   qDebug() << "### handler use-> " <<  __FUNCTION__;
        QPdfium pdf(file);
        QString grep;
        const int sumpage =  pdf.pageCount();
@@ -1269,6 +1274,7 @@ void ZipDoc::handler_pdf( const QString file ) {
 
 
 void ZipDoc::handler_odt( const QString file ) {
+	qDebug() << "### handler use-> " <<  __FUNCTION__;
   QMap<QString,QByteArray>  filist = unzipstream(file);
   const QByteArray base = filist["content.xml"];
     if (base.size() > 0 ) {
@@ -1281,6 +1287,7 @@ void ZipDoc::handler_odt( const QString file ) {
 }
 
 void ZipDoc::handler_txtutils( const QString file ) {
+	qDebug() << "### handler use-> " <<  __FUNCTION__;
      //// converter = /usr/bin/textutil
      if (converter.size() < 4) {
        text_s = QString("textutil -convert .. unable to read! or not mac osx.");
@@ -1293,13 +1300,14 @@ void ZipDoc::handler_txtutils( const QString file ) {
       if (!process->waitForFinished()) {
            text_s = QString("Unable to read!.");
       } else {
-           text_s = process->readAll();
+           text_s = strip_tag(process->readAll());
       }
 
         ///// qDebug() << "### text_s " << text_s;
 }
 
 void ZipDoc::handler_docx( const QString file ) {
+	qDebug() << "### handler use-> " <<  __FUNCTION__;
   QMap<QString,QByteArray>  filist = unzipstream(file);
   const QByteArray base = filist["word/document.xml"];
     if (base.size() > 0 ) {
@@ -1311,8 +1319,15 @@ void ZipDoc::handler_docx( const QString file ) {
     }
 }
 
+QString ZipDoc::strip_tag(QString istring) {
+	
+	QByteArray longx;
+    longx.append(istring.toLatin1());
+	return this->strip_tag(longx);
+}
 
 QString ZipDoc::strip_tag(QByteArray istring) {
+	qDebug() << "### handler use-> " <<  __FUNCTION__;
 
     bool intag = false;
     QChar newbr(10);

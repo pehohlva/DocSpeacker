@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+   <dict>
+      <key>NSPrincipalClass</key>
+      <string>NSApplication</string>
+      <key>CFBundleIconFile</key>
+      <string>@ICON@</string>
+      <key>CFBundlePackageType</key>
+      <string>APPL</string>
+      <key>CFBundleGetInfoString</key>
+      <string>Created by Qt/QMake</string>
+      <key>CFBundleIdentifier</key>
+      <string>com.trolltech.Docspeacker</string>
+      <key>CFBundleSignature</key>
+      <string>ttxt</string>
+      <key>CFBundleExecutable</key>
+      <string>DocSpeacker</string>
+      <key>CFBundleDocumentTypes</key>
+      <key>Comment</key>
+      <string>Open all know document to transform in text and speack, like a viewer.</string>
+      <array>
+         <dict>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+               <string>pdf</string>
+               <string>txt</string>
+               <string>text</string>
+               <string>utf8</string>
+               <string>html</string>
+               <string>phtml</string>
+               <string>shtml</string>
+               <string>xhtml</string>
+               <string>htm</string>
+               <string>pht</string>
+               <string>sht</string>
+               <string>xht</string>
+               <string>phtm</string>
+               <string>shtm</string>
+               <string>xhtm</string>
+               <string>rtf</string>
+               <string>odt</string>
+               <string>doc</string>
+               <string>docx</string>
+               <string>wordml</string>
+               <string>webarchive</string>
+               <string>swx</string>
+               <string>rtfd</string>
+               <string>fo</string>
+               <string>fop</string>
+               <string>xml</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Hear</string>
+         </dict>
+      </array>
+      <key>NOTE</key>
+      <string>Open all know document to transform in text and speack, like a viewer.</string>
+   </dict>
+</plist>

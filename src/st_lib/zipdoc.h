@@ -67,6 +67,7 @@ public:
 
 private:
     QString strip_tag(QByteArray istring); /// remove html tag or xml tag
+    QString strip_tag(QString istring);
     QString html_s;
     QString text_s;
     QString converter;

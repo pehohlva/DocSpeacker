@@ -18,7 +18,7 @@ HiView_SIGNATURE = HiHV
 CONFIG += c++11
 CONFIG += QMAKE_CXXFLAGS_WARN_ON=-w QMAKE_CFLAGS_WARN_ON=-w
 LIBS += -lz
-
+cache()
 MOC_DIR = build
 RCC_DIR = build
 OBJECTS_DIR = build
@@ -27,11 +27,16 @@ INCLUDEPATH +=st_lib/
 LIBS += -L ./st_lib/ -l_docrec
 INCLUDEPATH += $$[QT_INSTALL_PREFIX]/src/3rdparty/zlib
 #
-ICON = ./docspeacker.icns
-QMAKE_INFO_PLIST = ./Info.plist
-OTHER_FILES += ./Info.plist
+ICON = docspeacker.icns
+QMAKE_INFO_PLIST = Info.plist.template
+OTHER_FILES += Info.plist.template
+
+
+RC_FILE = docspeacker.icns
+
 
 TARGET = DocSpeacker
+
 #Info_plist.target   =   Info.plist # exec console ./DocSpeacker.app/Contents/MacOS/DocSpeacker
 #Info_plist.depends  =   Info.plist.template DocSpeacker.app/Contents/Info.plist
 #Info_plist.commands =   @$(DEL_FILE) $${TARGET}.app/Contents/Info.plist$$escape_expand(\n\t) \
@@ -42,14 +47,11 @@ TARGET = DocSpeacker
 }
 
 
-SOURCES += main.cpp \
-           rdoc.cpp
-HEADERS += rdoc.h
+SOURCES += main.cpp redoc.cpp remainwin.cpp
+HEADERS += redoc.h remainwin.h re_application_setting.h
 
 DISTFILES += docspeacker.icns \
     pkginfo \
     Info.plist.template
 
 RESOURCES += inlinefolder.qrc
-
-
