@@ -1,8 +1,31 @@
-#ifndef ZIPDOC_H
-#define ZIPDOC_H
+#ifndef RE_DOCUMENT_OPEN_H
+#define RE_DOCUMENT_OPEN_H
+/*
+ * re_document_open.h
+ * 
+ * Copyright 2017 dev <phohlva@gmail.com>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ * 
+ * 
+ */
+
+
 #include <QObject>
-#include "gzipreader.h"
-#include "gzipwriter.h"
+#include "Document_Handler.h"
 #include <QCoreApplication>
 #include <QObject>
 #include <QFile>
@@ -25,33 +48,14 @@
 #include <QBuffer>
 
 
-/*  open document odt docx or other zip format   */
-QMap<QString,QByteArray> unzipstream( const QString file );
-
-/*  usage
-QString txtlog;
-QMap<QString,QByteArray>  filist = unzipstream("giallo.odt");
-QMapIterator<QString,QByteArray> i(filist);
-    while (i.hasNext()) {
-        i.next();
-        qDebug() << "### name---------- " << i.key();
-        txtlog.append(i.key());
-    }
-QByteArray base = filist["content.xml"];
-if (base.size() > 0) {
-   txtlog.append(QString(base));
-}
-*/
 
 
 
-
-
-class ZipDoc
+class Document_Handler
 {
 
 public:
-    ZipDoc();
+    Document_Handler();
     QString simple_open( const QString file );
     void handler_odt( const QString file );
     void handler_html( const QString file );
@@ -60,8 +64,9 @@ public:
     void handler_docx( const QString file );
     void handler_text_plain( const QString file );
     void show_zip( const QString file );
+    void clear(); /// reset !!
     QString get_text() { return text_s;  }
-    ~ZipDoc();
+    ~Document_Handler();
 
 private:
     QString strip_tag(QByteArray istring); /// remove html tag or xml tag
@@ -72,4 +77,9 @@ private:
     RamStream *ram;
 };
 
-#endif // ZIPDOC_H
+
+
+
+#endif
+
+

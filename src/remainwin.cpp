@@ -20,10 +20,11 @@ MainWin::MainWin(QWidget *parent) : QMainWindow(parent) {
 
 void MainWin::resizeEvent(QResizeEvent *event)
 {
-  qDebug() << "MainWin::resizeEvent event ";
+  Q_UNUSED(event);
+  //// qDebug() << "MainWin::resizeEvent event ";
   QRect screens = this->geometry();
   QSettings settings(_ORGANIZATION_NAME_,_PROGRAM_NAME_);
-  qDebug() << "### screens.width() " << screens.width();
+  //// qDebug() << "### screens.width() " << screens.width();
   settings.setValue("editor/width", screens.width());
   settings.setValue("editor/height", screens.height() );
 }

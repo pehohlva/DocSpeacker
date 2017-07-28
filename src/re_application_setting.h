@@ -36,7 +36,7 @@
 #include <QKeySequence>
 
 static inline QString QTR( const QString t ) {
-   QString newone("translate:");
+   QString newone("QTR:");
    return newone.append(t);
 }
 

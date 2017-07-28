@@ -51,19 +51,16 @@ RDoc::RDoc( int &argc, char **argv)
   workspace = new QMdiArea();
   win->setCentralWidget(workspace);
 
-  QKeySequence openkeyc(Qt::CTRL + Qt::Key_K,Qt::CTRL + Qt::Key_Q);
+
   //// http://doc.qt.io/archives/qt-5.5/qmenu.html#setAsDockMenu QKeySequence::Open
   QMenu *macdocks = new QMenu();  //// menu by mac bar icons QKeySequence::Open addAction(const QIcon &icon, const QString &text, Functor functor, const QKeySequence &shortcut = 0)
-  macdocks->addAction(QTR("&Mac Exit Test"),this, SLOT(request_to_close()));
-  //// macdocks->addAction(tmpicon,QTR("&Mac Open Document.."),this, SLOT(openDiskFile()),openkeyc);
-
+  macdocks->addAction(QTR("&Mac Exit Test"),this, SLOT(prepare_to_close()));
   QAction *opendialogconfig = new QAction(QTR("&Mac Open Document.."),win);
-  opendialogconfig->setIcon(this->style()->standardIcon(QStyle::SP_FileIcon));
-  opendialogconfig->setShortcut(openkeyc);
+  //// opendialogconfig->setIcon(win->style()->standardIcon(QStyle::SP_FileIcon));
+  //// opendialogconfig->setShortcut(QKeySequence(QKeySequence::Open));
   opendialogconfig->setStatusTip(QTR("Open File *"));
   QObject::connect(opendialogconfig, SIGNAL(triggered()),this, SLOT(openDiskFile()));
   macdocks->addAction(opendialogconfig);
-  macdocks->addSeparator();
   qt_mac_set_dock_menu(macdocks);
 
 
@@ -100,15 +97,22 @@ void  RDoc::openDiskFile()
     /* next alias type QVariantList  */
     QVariantList lastfiles = settings.value("editor/files/db").toList();
     qDebug() << "### openDiskFile " << dirlast;
-    QString fileName = QFileDialog::getOpenFileName( win,
+    QStringList filenames = QFileDialog::getOpenFileNames( win,
         tr("Open File to read"),dirlast, tr("Files (*)"));
-
-    if ( fileName.size()  > 0 ) {
-        QFileInfo iofi(fileName);
-        lastfiles.append(QVariant(fileName));
-        settings.setValue("editor/files/db",lastfiles);
-        settings.setValue("editor/lastdir_open",iofi.absoluteDir().absolutePath());
-        this->openFile(fileName);
+        if( !filenames.isEmpty() ) {
+			for (int i =0;i<filenames.count();i++) {
+				const QString fx = filenames.at(i);
+				QFileInfo iofi(fx);
+				lastfiles.append(QVariant(fx));
+				//// not loast dir 
+				settings.setValue("editor/lastdir_open",iofi.absoluteDir().absolutePath());
+				this->openFile(fx);
+			}
+			
+		}
+	 if ( lastfiles.size() > 0) {
+     //// increase list if having ++
+     settings.setValue("editor/files/db",lastfiles);
       }
 }
 
@@ -119,6 +123,7 @@ void  RDoc::openFile(const QString f)
       emit sendstatus(QString("New file incomming %1..").arg(f));
       docs->openDoc(f);
 }
+
 
 void RDoc::prepare_to_close() {
     qDebug() << "### prepare_to_close";
@@ -138,12 +143,12 @@ void RDoc::prepare_to_close() {
 
 bool RDoc::event (QEvent *event) {
 
-       qDebug() << "### EventApplication event in >>  " << event->type();
+       //// qDebug() << "### EventApplication event in >>  " << event->type();
        if (event->type() == QEvent::FileOpen)
        {
        // Get the path of the file that we want to open
        const QString  file_path = static_cast<QFileOpenEvent *> (event)->file();
-       qDebug() << "### file_path: >>  " << file_path;
+       //// qDebug() << "### file_path: >>  " << file_path;
        emit signalFileOpen(file_path);
        } else {
          // The system requested us to do another thing, so we just follow the rules
