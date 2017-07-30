@@ -9,8 +9,11 @@
 int main(int argc, char *argv[])
 {
   RDoc a(argc, argv);
+  //// QApplication a(argc, argv);
   QResource::registerResource("./inlinefolder.rcc");
   
+  /// UI_Speacker test;
+  /// test.show();
 
   /*
   QFile loadFile(QStringLiteral("./re_application_setting.h"));

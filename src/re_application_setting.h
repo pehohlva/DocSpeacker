@@ -34,9 +34,27 @@
 #include <QFileinfo>
 #include <QDir>
 #include <QKeySequence>
+#include <QtCore/QVariant>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPlainTextEdit>
+#include <QtWidgets/QProgressBar>
+#include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QWidget>
 
+//// todo translate here
 static inline QString QTR( const QString t ) {
    QString newone("QTR:");
+   return newone.append(t);
+}
+//// todo translate here
+static inline QString QTR_HTML( const QString t ) {
+   QString newone;
    return newone.append(t);
 }
 
@@ -61,6 +79,10 @@ QCoreApplication::setOrganizationName(_ORGANIZATION_NAME_);
 
 #define WORK_CACHEDIR \
                QString( "%1/.%2/" ).arg(QDir::homePath(),_PROGRAM_SHORT_NAME)
+
+
+
+
 
 
 

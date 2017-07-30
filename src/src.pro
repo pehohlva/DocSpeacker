@@ -49,8 +49,10 @@ TARGET = DocSpeacker
 }
 
 
-SOURCES += main.cpp redoc.cpp remainwin.cpp
-HEADERS += redoc.h remainwin.h re_application_setting.h
+SOURCES += main.cpp redoc.cpp remainwin.cpp \
+    re_speacker.cpp
+HEADERS += redoc.h remainwin.h re_application_setting.h \
+    re_speacker.h
 
 # only to library destination at end !
 SOURCES += st_lib/zipdoc.cpp \

@@ -1294,6 +1294,8 @@ void ZipDoc::handler_txtutils( const QString file ) {
      }
     //// ram->LoadFile(file);
     //// const QByteArray base = ram->stream();
+     QTime myTimer;
+     myTimer.start();
     QProcess *process = new QProcess(NULL);
     process->setReadChannelMode(QProcess::MergedChannels);
     process->start(converter,  QStringList() << "-convert" << "txt" << file << "-stdout", QIODevice::ReadOnly );
@@ -1303,7 +1305,7 @@ void ZipDoc::handler_txtutils( const QString file ) {
            text_s = strip_tag(process->readAll());
       }
 
-        ///// qDebug() << "### text_s " << text_s;
+      qDebug() << "### handler_txtutils time-> " << myTimer.elapsed();
 }
 
 void ZipDoc::handler_docx( const QString file ) {
@@ -1327,6 +1329,8 @@ QString ZipDoc::strip_tag(QString istring) {
 }
 
 QString ZipDoc::strip_tag(QByteArray istring) {
+      QTime myTimer;
+      myTimer.start();
 	qDebug() << "### handler use-> " <<  __FUNCTION__;
 
     bool intag = false;
@@ -1352,8 +1356,10 @@ QString ZipDoc::strip_tag(QByteArray istring) {
 
 
     QString clean = QString(new_string).trimmed();
-    QStringList alline = clean.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
-    return alline.join(" ");;
+    QStringList all_line = clean.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
+
+    qDebug() << "### strip_tag time-> " << myTimer.elapsed();
+    return all_line.join(" ");
 }
 
 

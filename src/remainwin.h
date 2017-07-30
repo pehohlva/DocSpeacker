@@ -6,6 +6,7 @@
 #include <QSettings>
 #include <QResizeEvent>
 #include <QMainWindow>
+#include "re_speacker.h"
 
 
 

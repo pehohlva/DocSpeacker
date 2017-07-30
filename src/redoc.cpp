@@ -1,7 +1,7 @@
 #include "redoc.h"
 #include <QFileInfo>
 #include <QVariant>
-
+#include "re_speacker.h"
 
 RDoc::RDoc( int &argc, char **argv)
      : QApplication(argc,argv)
@@ -80,12 +80,19 @@ RDoc::RDoc( int &argc, char **argv)
 void  RDoc::speechtext(const QString t)
 {
   QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
+
+      UI_Speacker *item = new UI_Speacker(win);
+                   item->setPlainText(t);
+                   workspace->addSubWindow(item);
+                   item->show();
+      /*
   QTextEdit *tex = new QTextEdit(win);
   tex->setMinimumHeight(455);
   tex->setMinimumWidth(400);
   workspace->addSubWindow(tex);
   tex->show();
   tex->setText(t);
+   */
 }
 
 void  RDoc::openDiskFile()
