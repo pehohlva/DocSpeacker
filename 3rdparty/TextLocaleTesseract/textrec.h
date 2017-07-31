@@ -26,14 +26,17 @@
 class Tessy {
 public:
 
+    /*
     enum {
         MAGICNUMBER = 0xA0B0C0D0, VERSION = 50
     };
+    */
+
     Tessy() {
       filenametess = QStringLiteral("error!");
       name_native = QStringLiteral("error!");
       type =0;
-      data = QByteArray();
+      data = QByteArray("Long Word.");
     }
     Tessy& operator=(const Tessy& d);
 
@@ -47,6 +50,7 @@ public:
     int mlanguage() {
         return type;
     }
+
     QByteArray streams() {
       return data;
     }
@@ -55,7 +59,7 @@ public:
         name_native= n;
         filenametess= t;
     }
-    /// bool saveDest( const QString dest );
+
     QString name_native; //// language name in this
     QString filenametess;  /// bcp47Name from qt... + .tessy
     int type; //// unique id qlocale.language() as int

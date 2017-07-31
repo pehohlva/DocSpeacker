@@ -24,6 +24,8 @@ public slots:
 private:
   /* int id = (int)QLocale::language()  unique -   QString nt native language name -  QString ctess Tesseract dir */
   void set_language_native( int id , QString & nt , QString & ctess );
+  QVector<QLocale> locale_jobs;
+  QVector<QString> localeNameVector;
 };
 
 #endif // TEXTRECDOWN_H

@@ -6,19 +6,28 @@
 #include <QVector>
 #include <QVectorIterator>
 #include <QMap>
+#include "textrechander.h"
 
+#include "textrec.h"
 
 
 TextRecDown::TextRecDown(QObject *parent) : QObject(parent)
 {
   QTime myTimer;
   myTimer.start();
+  QTextStream out(stdout);
 
-     QTextToSpeech *tess = new QTextToSpeech(this);
-     QVector<QLocale> localein =  tess->availableLocales();
-     QVector<Tessy> locale_full;
-     QTextStream out(stdout);
-       out << "QTextToSpeech availableLocales \n";
+     TextRecHander *regmanager = new TextRecHander(this);
+     if ( regmanager->is_networkAccessible()  ) {
+         out << "networkAccessible is ok..\n";
+       } else {
+         out << "networkAccessible is down :-(.\n";
+       }
+
+     const QString porto = "https://raw.githubusercontent.com/tesseract-ocr/langdata/master/por/desired_characters";
+     regmanager->get_remote_file(porto);
+
+
      QVector<QString> localeVector;
      QVector<int> localeids;
        int steps=-1;
@@ -27,7 +36,6 @@ TextRecDown::TextRecDown(QObject *parent) : QObject(parent)
                localeVector.insert(steps,locale.bcp47Name());
          }
 
-       //// QMap<int,Tessy> language_map_here;
        const int xmany = localeVector.size();
        qSort( localeVector );
        out << "Found tot:" << xmany << " item.\n";
@@ -42,10 +50,10 @@ TextRecDown::TextRecDown(QObject *parent) : QObject(parent)
              if (localeids.indexOf(nr) ==-1) {
                   localeids.prepend(nr);
                     this->set_language_native(nr,nativename,tesseract_ocr_dir);
-                    //// Tessy record;
-                    ///// record.set(nr,nativename,tesseract_ocr_dir);
+                    /// Tessy record;
+                    //// record.set(nr,nativename,tesseract_ocr_dir);
                     ///// locale_full.insert(nr,record);
-                    //// qDebug() << record;
+                    /// qDebug() << record;
 
 
                     out << country <<  " / ";
@@ -63,6 +71,36 @@ TextRecDown::TextRecDown(QObject *parent) : QObject(parent)
 
            out << "(" << myTimer.elapsed() <<  ") time \n";
            out.flush();
+
+}
+
+
+void TextRecDown::register_Locale() {
+
+  QTextStream out(stdout);
+  QTextToSpeech *tess = new QTextToSpeech(this);
+  locale_jobs.clear();
+  locale_jobs = tess->availableLocales();
+
+  QVector<QString> localeNameVector;
+  QVector<int> locale_id_ref;
+  int steps=-1;  // begin to sort order name
+    foreach (const QLocale &locale, locale_jobs ) {
+            int nr = (int)locale.language();
+            //// unique language!!!
+              if (locale_id_ref.indexOf(nr) ==-1) {
+                 locale_id_ref.prepend(nr);
+                 steps++;
+                 localeNameVector.insert(steps,locale.bcp47Name());
+              }
+
+
+      }
+
+    const int xmany = localeNameVector.size();
+    qSort( localeNameVector );
+    out << "Found tot:" << xmany << " item.\n";
+
 
 }
 
