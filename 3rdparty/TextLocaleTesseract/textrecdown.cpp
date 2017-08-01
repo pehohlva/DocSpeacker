@@ -52,24 +52,138 @@ void TextRecDown::execute_remote() {
 
 
 
-void TextRecDown::vector_char_from( const QString dir ) {
+void TextRecDown::vector_char_from( const QString dir , const QString qtxname ) {
+
+    QLocale cursor(qtxname);
+    int nr = (int)cursor.language();
+    QString gdir;
+    QString nativename;
+    this->set_language_native(nr,nativename,gdir);
+    if (dir == "lat") {
+        /// qt no latin!
+        nativename = QString("Latino");
+      }
 
      Vector_Qstring UniqueChar;
+     UniqueChar.clear();
+     UniqueChar.prepend(QString("20"));
+     int myValue = 1;
+     int maxValue = 0;
      UniqueChar.clear();
      RamStream *xram = new RamStream();
      QString f_letter = __DIRBASICTESSY__ + QString("@key@/desired_characters").replace("@key@",dir);
      QString dest_letter = __DIRBUILDTESSY__ + QString("@key@/desired_characters").replace("@key@",dir) + __EXTTESSAPP__; //// other DIR!!!
-     QString ftraning = __DIRBASICTESSY__ + QString("@key@/@key@.training_text").replace("@key@",dir); ////  training text
-     out << "Generate language:" << dir << "\n";
+     QString fwordsC = __DIRBASICTESSY__ + QString("@key@/@key@.training_text").replace("@key@",dir); ////  training text
+     QString fwordsA = __DIRBASICTESSY__ + QString("@key@/@key@.word.bigrams").replace("@key@",dir); ////  training word
+     QString fwordsB = __DIRBASICTESSY__ + QString("@key@/@key@.wordlist").replace("@key@",dir); ////  training word
+
+     QFileInfo fia(fwordsA);
+     QFileInfo fib(fwordsB);
+     QFileInfo fic(fwordsC);
+
+     qint64 xsize = fia.size() + fib.size() + fic.size();
+
+     out << "X Generate language:" << dir << "/" << nativename << "  found:" <<  bytesToSize(xsize) << "\n";
      out.flush();
+
+     QFile FileA(fwordsA);
+     if (FileA.open(QIODevice::ReadOnly))
+     {
+        QTextStream in(&FileA);
+        int fly=-1;
+        while (!in.atEnd())
+        {
+           fly++;
+           QString line = in.readLine();
+           const int co = line.size();
+
+           if (co > 0 ) {
+                 for(int index = 0;index < co;index++)  {
+                      const QString letter(line.at(index));
+                      QByteArray gos(letter.trimmed().toUtf8());  //// by in loop ok
+                      const QString item(gos.toHex(';').toUpper().data());
+                        if (!UniqueChar.contains(item.trimmed()) && letter.size() < 2) {
+                          UniqueChar.prepend(item.trimmed());
+                        }
+                   }
+             }
+
+           out << "+++++++" << fly << "-" <<  co << "\r";
+        }
+        FileA.close();
+        out.flush();
+     }
+
+
+     QFile FileB(fwordsB);
+     if (FileB.open(QIODevice::ReadOnly))
+     {
+        QTextStream in(&FileB);
+        int fly=-1;
+        while (!in.atEnd())
+        {
+           fly++;
+           QString line = in.readLine();
+           const int co = line.size();
+
+           if (co > 0 ) {
+                 for(int index = 0;index < co;index++)  {
+                      const QString letter(line.at(index));
+                      QByteArray gos(letter.trimmed().toUtf8());  //// by in loop ok
+                      const QString item(gos.toHex(';').toUpper().data());
+                        if (!UniqueChar.contains(item.trimmed()) && letter.size() < 2) {
+                          UniqueChar.prepend(item.trimmed());
+                        }
+                   }
+             }
+
+           out << "+++++++" << fly << "-" <<  co << "\r";
+        }
+        FileB.close();
+        out.flush();
+     }
+
+
+
+     QFile FileC(fwordsC);
+     if (FileC.open(QIODevice::ReadOnly))
+     {
+        QTextStream in(&FileC);
+        int fly=-1;
+        while (!in.atEnd())
+        {
+           fly++;
+           QString line = in.readLine();
+           const int co = line.size();
+
+           if (co > 0 ) {
+                 for(int index = 0;index < co;index++)  {
+                      const QString letter(line.at(index));
+                      QByteArray gos(letter.trimmed().toUtf8());  //// by in loop ok
+                      const QString item(gos.toHex(';').toUpper().data());
+                        if (!UniqueChar.contains(item.trimmed()) && letter.size() < 2) {
+                          UniqueChar.prepend(item.trimmed());
+                        }
+                   }
+             }
+
+           out << "+++++++" << fly << "-" <<  co << "\r";
+        }
+        FileC.close();
+        out.flush();
+     }
 
      xram->LoadFile(f_letter);
      const QString chunk = QString(xram->stream().data());
+     xram->clear();
+     xram->~RamStream(); /// close & delete qbuffer!
+     QString trtext = QString();
      QByteArray xn;
-     xram->clear();
-     xram->LoadFile(ftraning);
-     const QString trtext = QString(xram->stream().data());
-     xram->clear();
+     if (UniqueChar.size() < 56) {
+        qDebug() << "Need text size char(" << chunk.size() <<  ")  from desired_characters to language ->" << dir << "!!!!!";
+         return;
+       }
+
      if (chunk.size() > 0 ) {
             //// handle char from desired_characters lang!!!!
             QStringList lines = chunk.split("\n",QString::SkipEmptyParts);  /// split line
@@ -77,6 +191,7 @@ void TextRecDown::vector_char_from( const QString dir ) {
                       const QString data = QString(lines.at(index)).trimmed(); //// get char letter by in loop ok
                       QByteArray gos(data.toUtf8());  //// by in loop ok
                       const QString item(gos.toHex(';').toUpper().data());
+                      maxValue = qMax(myValue,data.size()); /// go out???
                           if (!UniqueChar.contains(item.trimmed()) && data.size() < 2) {
                               UniqueChar.prepend(item.trimmed());
                           }
@@ -84,29 +199,8 @@ void TextRecDown::vector_char_from( const QString dir ) {
 
 
        }
-         //// append new char if find in training_text
-         if (trtext.size() > 0 ) {
-             QStringList listwo = trtext.split(QRegExp("\\s+"), QString::SkipEmptyParts);
-             QSet<QString> stringnx = QSet<QString>::fromList(listwo);
-             foreach (const QString &value, stringnx) {
-                 const int co = value.size();
-                 if (co > 0 ) {
-                       for(int index = 0;index < co;index++)  {
-                            const QString letter(value.at(index));
-                            QByteArray gos(letter.trimmed().toUtf8());  //// by in loop ok
-                            const QString item(gos.toHex(';').toUpper().data());
-                              if (!UniqueChar.contains(item.trimmed()) && letter.size() < 2) {
-                                UniqueChar.prepend(item.trimmed());
-                              }
-                         }
-                   }
-               }
 
-         }
-
-
-      qDebug() << "desidered  chunk.size():" <<  chunk.size();
-      qDebug() << "text training:" << trtext.size();
+      qDebug() << "maxValue read ->" << maxValue << "<-";
       qDebug() << "D:" << dir <<  "-UniqueChar->:" << UniqueChar.size();
 
       if ( UniqueChar.size() < 55 ) {
@@ -115,6 +209,17 @@ void TextRecDown::vector_char_from( const QString dir ) {
 
 
       qSort(UniqueChar);
+      UniqueChar.remove(0);
+      QDateTime local(QDateTime::currentDateTime());
+      QDateTime UTC(local.toUTC());
+
+      QString produceat = "#" + local.toString(Qt::ISODateWithMs) + "#\n";
+      QString idx = dir + QString("/") + nativename;
+      QString lat =  fromlatin_dir.contains(dir) == true?  "#FromLatin\n" : "#FromOther\n";
+      const QString head = QString("#This file is produced by %1 to recognize the language: %2 \n").arg(__APPNAME__).arg(idx);
+      xn.append(head);
+      xn.append(produceat);
+      xn.append(lat);
       foreach (const QString &value, UniqueChar ) {
                        QString linehex = value;
                        QString c = linehex.remove(QChar(';'));
@@ -127,10 +232,11 @@ void TextRecDown::vector_char_from( const QString dir ) {
                        /////  qDebug() << "w:" << value << "-" << letter;
         }
 
-      xram->clear();
-      xram->ramwrite(xn);
-      xram->PutOnFile(dest_letter);
-      xram->clear();
+      RamStream *tram = new RamStream();
+      tram->ramwrite(xn);
+      tram->PutOnFile(dest_letter);
+      tram->clear();
+      tram->~RamStream();
       UniqueChar.clear();
 }
 
@@ -145,7 +251,7 @@ void TextRecDown::onefile_handler() {
                         foreach (const PaarString &coppia, localeEnableVector ) {
                            const QString di = coppia.second;
                            const QString dx = coppia.first;
-                           this->vector_char_from(di);  //// to fast!!!
+                           this->vector_char_from(di,dx);  //// to fast!!!
                       }
                    }
          )
@@ -199,56 +305,7 @@ void TextRecDown::onefile_handler() {
 //// search all uniode used...
 ///  need all QString("@key@/desired_characters") file
 void TextRecDown::beginextract_tess() {
-     need_uri_list.clear();
-     RamStream *xram = new RamStream();
-     //// RamStream *boxram_nolatin = new RamStream();
-     /// QStringList latinkey;
-     //// QStringList notlatinkey;
-     QByteArray latinX;
-     QByteArray nolatinX;
-     foreach (const PaarString &coppia, localeEnableVector ) {
-                 const QString dir = coppia.second;
-                 const QString dx = coppia.first;
-                 ///// QString filede = __DIRBASICTESSY__ + QString("@key@/desired_characters").replace("@key@",dir);
-                 QString filede = __DIRBASICTESSY__ + QString("@key@/@key@.training_text").replace("@key@",dir);
-                 QFileInfo fi(filede);
-                   if (fi.exists()) {
-                              if (fromlatin_dir.contains(dir)) {
-                                 latinX.append(xram->append_chunk(filede));
-                              } else {
-                                 nolatinX.append(xram->append_chunk(filede));
-                               }
-                     /// qDebug() <<  "file need ok:" << filede;
-                   } else {
-                       qDebug() <<  "lost file :-( :" << filede;
-                     }
 
-     }
-     xram->clear();
-     out <<  "chunker latinX:" << latinX.size() << " latinok:" << is_Latin(latinX) << "\n";
-     QString txter = QString(latinX.data());
-     //// out <<  "chunker latinA" << latinX.size();
-     //// out <<  "chunker latinT" << txter.size();
-     txter.resize(500);
-     /////7out <<  "txter :" << txter.replace("\n"," ");
-
-     QVector<int> uniquechar;
-     for (int i = 0; i < latinX.length(); i++) {
-              const char lex = latinX.at(i);
-             //// const QByteArray lett = ;
-             QLatin1Char vox(lex);   /// #include <QLatin1Char> QChar
-             int le = vox.unicode();
-               if (uniquechar.indexOf(le) ==-1) {
-                   const QString resm(lex);
-                   //// qDebug() <<  "rec:" << resm.size() << "-" << resm;
-                   uniquechar.prepend(le);
-               }
-
-       }
-     out << "UUUUXXXX  unique chars found size: " << uniquechar.size() <<    "\n";
-     out <<  "chunker latinX:.training_text uniquechar"  << latinX.size() <<  "\n";
-     qSort(uniquechar);
-     out.flush();
      this->shutdown();
 }
 
@@ -260,8 +317,12 @@ void TextRecDown::register_Locale() {
   fromlatin_dir.clear();
   fromlatin_qlocs.clear();
   ///// all discovery from latin by @key@.training_text
-  fromlatin_dir << "pol" <<  "fin" <<  "dan" << "nor" <<  "por" <<  "ron" <<  "nld" <<  "spa" <<  "ind" <<  "deu" <<  "fra" <<  "swe" << "ita" << "eng";
-  fromlatin_qlocs <<  "pl" <<  "fi" <<  "da" << "nb" <<  "pt-PT" <<  "ro" <<  "nl-BE" <<  "es-AR" <<  "id" << "de" <<  "fr-CA" <<  "sv" <<  "it" <<  "en";
+  fromlatin_dir << "pol" <<  "fin" <<  "dan" << "nor" <<  "por" <<  "ron"
+                <<  "nld" <<  "spa" <<  "ind" <<  "deu" <<  "fra" <<  "swe"
+                 << "ita" << "eng";
+  fromlatin_qlocs <<  "pl" <<  "fi" <<  "da" << "nb" <<  "pt-PT" <<  "ro"
+                   <<  "nl-BE" <<  "es-AR" <<  "id" << "de" <<  "fr-CA"
+                    <<  "sv" <<  "it" <<  "en";
   QTextToSpeech *tess = new QTextToSpeech(this);
   locale_jobs.clear();
   localeEnableVector.clear();
@@ -269,6 +330,7 @@ void TextRecDown::register_Locale() {
   locale_jobs = tess->availableLocales();
   QVector<int> locale_id_ref;
   int steps=-1;  // begin to sort order name
+
     foreach (const QLocale &locale, locale_jobs ) {
             int nr = (int)locale.language();
             //// unique language!!!
@@ -315,7 +377,7 @@ void TextRecDown::register_LinktoGet() {
    foreach (const PaarString &coppia, localeEnableVector ) {
                QString key = coppia.first;
                QString dir = coppia.second;
-                /// Conditional ternary operator latin or not
+                /// Conditional ternary operator latin or not  fra.training_text.bigram_freqs
                 QString lat =  fromlatin_dir.contains(dir) == true?  "latin" : "No latin";
                 out << lat << "list:" << key << "-" << dir << "\n";
                 if (dir !="null") {
@@ -334,7 +396,7 @@ void TextRecDown::register_LinktoGet() {
                 QString page6 = baseuri + QString("@key@/@key@.training_text.bigram_freqs");
                 page6.replace("@key@",dir);
                 /// training_text.bigram_freqs
-                need_uri_list << page6 <<  page5 << page4 << page3 << page2 << page1;
+                need_uri_list << page6 <<  page5 << page4 << page3 << page1;  // remove << page2
                   }
      }
      out <<  "Job dowload uri summ:" << need_uri_list.size() << "\n";

@@ -1,3 +1,6 @@
+#This file is produced by TessRecoText to recognize the language: ita_old/ελληνική 
+#2017-08-01T23:04:58.002#
+#FromOther
 21|!
 22|"
 23|#
@@ -107,11 +110,19 @@ C3;AC|ì
 C3;AE|î
 C3;B2|ò
 C3;B9|ù
+C5;BF|ſ
 E2;80;94|—
 E2;80;98|‘
 E2;80;99|’
 E2;80;9C|“
 E2;80;9D|”
+E2;80;A6|…
+E2;82;AC|€
+EE;80;83|
+EE;80;86|
+EE;80;87|
+EE;80;88|
+EE;80;89|
 EF;AC;80|ﬀ
 EF;AC;81|ﬁ
 EF;AC;82|ﬂ

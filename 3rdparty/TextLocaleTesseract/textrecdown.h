@@ -39,7 +39,7 @@ private:
   void register_LinktoGet();
   /* int id = (int)QLocale::language()  unique -   QString nt native language name -  QString ctess Tesseract dir */
   void set_language_native( int id , QString & nt , QString & ctess );
-  void vector_char_from( const QString dir ); /// one language accepted char...
+  void vector_char_from(const QString dir , const QString qtxname ); /// one language accepted char...
   bool getremoteFile;
   bool append_latin_lang;
   QStringList need_uri_list;

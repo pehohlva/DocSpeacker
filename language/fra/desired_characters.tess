@@ -1,3 +1,6 @@
+#This file is produced by TessRecoText to recognize the language: fra/français 
+#2017-08-01T23:07:15.463#
+#FromLatin
 21|!
 22|"
 23|#
@@ -134,6 +137,12 @@ E2;80;98|‘
 E2;80;99|’
 E2;80;9C|“
 E2;80;9D|”
+E2;80;A6|…
 E2;82;AC|€
+EE;80;83|
+EF;AC;80|ﬀ
 EF;AC;81|ﬁ
 EF;AC;82|ﬂ
+EF;AC;83|ﬃ
+EF;AC;84|ﬄ
+EF;AC;86|ﬆ

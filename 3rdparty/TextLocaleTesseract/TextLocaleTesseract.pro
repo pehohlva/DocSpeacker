@@ -1,5 +1,4 @@
-QT += core texttospeech  network xml
-QT -= gui
+QT += core texttospeech  network xml gui
 
 CONFIG += c++11
 
@@ -11,6 +10,7 @@ MOC_DIR = build
 RCC_DIR = build
 OBJECTS_DIR = build
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 
 CONFIG +=   qt warn_off silent release
@@ -48,4 +48,5 @@ HEADERS += \
     textrechander.h
 
 DISTFILES += \
-    AAsnip.txt
+    AAsnip.txt \
+    maintext.txt

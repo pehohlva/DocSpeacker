@@ -1,3 +1,6 @@
+#This file is produced by TessRecoText to recognize the language: rus/ру́сский 
+#2017-08-01T23:04:43.696#
+#FromOther
 21|!
 22|"
 23|#
@@ -110,6 +113,7 @@ D1;8D|э
 D1;8E|ю
 D1;8F|я
 D1;91|ё
+D1;96|і
 E2;80;94|—
 E2;80;98|‘
 E2;80;99|’
@@ -117,6 +121,7 @@ E2;80;9A|‚
 E2;80;9C|“
 E2;80;9D|”
 E2;80;9E|„
+E2;80;A6|…
 E2;80;B9|‹
 E2;80;BA|›
 E2;84;96|№
