@@ -1,4 +1,4 @@
-QT += core texttospeech xml network
+QT += core texttospeech  network xml
 QT -= gui
 
 CONFIG += c++11
@@ -46,3 +46,6 @@ HEADERS += \
     textrec.h \
     textrecdown.h \
     textrechander.h
+
+DISTFILES += \
+    AAsnip.txt
