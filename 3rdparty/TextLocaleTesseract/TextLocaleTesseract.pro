@@ -45,8 +45,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += \
     textrec.h \
     textrecdown.h \
-    textrechander.h
+    textrechander.h \
+    textrec_config.h
 
 DISTFILES += \
     AAsnip.txt \
-    maintext.txt
+    maintext.txt version_status

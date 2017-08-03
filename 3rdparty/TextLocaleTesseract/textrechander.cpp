@@ -1,14 +1,12 @@
-#include "textrechander.h"
-#include "textrec.h"
-#include "textrecdown.h"
-
 #include <QVector>
 #include <QLocale>
 #include <QVector>
 #include <QVectorIterator>
 #include <QMap>
 
-
+#include "textrechander.h"
+#include "textrec.h"
+#include "textrecdown.h"
 #include "textrec.h"
 
 
@@ -64,7 +62,6 @@ bool GetTessyFile::saveToDisk(const QString &filename, QIODevice *data)
        if(!dir.exists(fi.absolutePath())) {
            dir.mkpath(fi.absolutePath());
         }
-
           QFile file(filename);
          if (fi.exists()) {
             file.remove();

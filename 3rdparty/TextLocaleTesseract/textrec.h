@@ -1,51 +1,6 @@
 #ifndef TEXTREC_H
 #define TEXTREC_H
-
-#include <QCoreApplication>
-#include <QFile>
-#include <QString>
-#include <QDebug>
-#include <QStringList>
-#include <QTimer>
-#include <QUrl>
-#include <QDir>
-#include <QDate>
-#include <QDateTime>
-#include <QFileInfo>
-#include <QFile>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QNetworkDiskCache>
-#include <QTextStream>
-#include <QMetaType>
-#include <QPair>
-#include <QtCore>
-#include <QLoggingCategory>
-
-#include <QDebug>
-#include <QElapsedTimer>
-
-#define CONCAT_(x,y) x##y
-#define CONCAT(x,y) CONCAT_(x,y)
-
-
-
-
-const int pointo = 76;
-#define __DOCVERSION__ \
-              QString("Ve.1.2.4")
-#define __APPNAME__ \
-              QString("TessRecoText")
-
-#define __EXTTESSAPP__ \
-              QString(".tess")
-
-#define __DIRBASICTESSY__ \
-              QString("%1/Applications/Language/Tess/").arg(QDir::homePath())
-
-#define __DIRBUILDTESSY__ \
-              QString("%1/zz/DocSpeacker/language/").arg(QDir::homePath())
-
+#include "textrec_config.h"
 
 
 static QString bytesToSize(const qint64 size) {
@@ -67,8 +22,6 @@ static bool is_Latin( const QByteArray array ) {
   QByteArray spinn = QString::fromUtf8(array).toLatin1();
   bool latinchunk = false;
   double parts = spinn.size() / (array.size() / 100); /// how many % latin go away!
-  //// qDebug() <<  "osm:" << osm << ":" << osw;
-  qDebug() <<  "perc:" << parts;
   if (parts > 92 ) { //// loast data latin
     latinchunk = true;
   }
@@ -207,12 +160,6 @@ class RamStream
 
 class Tessy {
 public:
-
-    /*
-    enum {
-        MAGICNUMBER = 0xA0B0C0D0, VERSION = 50
-    };
-    */
 
     Tessy() {
       filenametess = QStringLiteral("error!");

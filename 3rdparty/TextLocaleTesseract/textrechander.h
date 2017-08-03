@@ -9,14 +9,12 @@
 #include <QNetworkInterface>
 #include <QNetworkAddressEntry>
 
-#include  "textrec.h"  //// option && define dir!
-
-
+#include  "textrec.h"
 
 
 class QSslError;
 
-
+/* classe per prendere i file delle lingue non per altro ! */
 class GetTessyFile: public QObject
 {
     Q_OBJECT
@@ -38,12 +36,5 @@ public slots:
     void downloadFinished(QNetworkReply *reply);
     void sslErrors(const QList<QSslError> &errors);
 };
-
-
-
-
-
-
-
 
 #endif // TEXTRECHANDER_H

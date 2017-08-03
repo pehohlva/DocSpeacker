@@ -2,59 +2,40 @@
 #include "textrec.h"
 #include "textrecdown.h"
 #include "textrechander.h"
-
+#include <QTimer>
+#include <QtCore>
 #include <iostream>
-#include <vector>
-#include <clocale>
-#include <cwchar>
-
-void print_as_wide(const char* mbstr)
-{
-    std::mbstate_t state = std::mbstate_t();
-    int len = 1 + std::mbsrtowcs(NULL, &mbstr, 0, &state);
-    std::vector<wchar_t> wstr(len);
-    std::mbsrtowcs(&wstr[0], &mbstr, wstr.size(), &state);
-    std::wcout << "Wide string: " << &wstr[0] << '\n'
-               << "The length, including '\\0': " << wstr.size() << '\n';
-}
 
 
 int main(int argc, char *argv[])
 {
-  QCoreApplication a(argc, argv);
-  qRegisterMetaType<Tessy>();
-  TextRecDown hello;
-     ////// const char* mbstr = u8"z\u00df\u6c34  \U0001f402"; // 🍌🍌🍌🍌🍌🍌🍌🍌🍌    //// \U0001f34c  \U0001F34C
+  QCoreApplication app(argc, argv);
+  QStringList order = app.arguments();
+  Echo out(stdout,QIODevice::WriteOnly);
 
-  QTimer::singleShot(0, &hello, SLOT(onefile_handler()));
-      ///// QString str = QString::fromUtf8(mbstr);
+     out << "Value of __DATE__ : " << __DATE__ << endl;
+     out << "Value of __TIME__ : " << __TIME__ << endl;
 
-      ///// qDebug() <<  "uncoso:"  << str;
+     if (order.size() >= 2 ) {
+         TextRecDown *hello = new TextRecDown();
+         const QString domake = order.at(1);
+             if (domake == "-d") {
+                     hello->execute_remote();
+                     /// QTimer::singleShot(3, &hello, SLOT(execute_remote()));
+             } else if (domake == "-g") {
+                      hello->onefile_handler();
+                      //// QTimer::singleShot(3, &hello, SLOT(onefile_handler()));
+               } else if (domake == "-l") {
+                      hello->onefile_handler();
+                      //// QTimer::singleShot(3, &hello, SLOT(init_listing()));
+               } else {
+                 return 0;
+               }
+       } else {
+         out << "Download file arg = -d / build unique language file arg = -g"<< endl;
+         out << "Build database to search language item arg = -l"<< endl;
+         return 0;
+       }
 
-      //// std::setlocale(LC_ALL, "en_US.utf8");  //// "\uD83C\uDF4C"
-      //// const char* mbstr = u8"z\u00df\u6c34  \U0001F34D\U0001F1F9"; // or u8"zß水🍌"  //// \U0001f34c  \U0001F34C
-      //// print_as_wide(mbstr);
-
-
-
-
-     //// return 0;
-
-
-  /*
-  QList<QNetworkInterface> allInterfaces = QNetworkInterface::allInterfaces();
-  QNetworkInterface eth;
-
-  foreach(eth, allInterfaces) {
-      QList<QNetworkAddressEntry> allEntries = eth.addressEntries();
-      QNetworkAddressEntry entry;
-      foreach (entry, allEntries) {
-          qDebug() << eth.name() << entry.ip().toString() << "/" << entry.netmask().toString();
-      }
-  }
-
-  */
-     return a.exec();
+  return app.exec();
 }
-
-
