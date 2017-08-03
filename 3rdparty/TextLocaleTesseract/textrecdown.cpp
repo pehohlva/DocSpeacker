@@ -193,6 +193,7 @@ void TextRecDown::vector_char_from( const QString dir , const QString qtxname ) 
                        xn.append(html_encode(letter));
                        xn.append(QByteArray("\t"));
                        xn.append(letter.toUtf8());
+                       xn.append(QByteArray("\t"));
                        xn.append(lang_encode(letter));
                        xn.append(QByteArray("\n")); //// line end!
                              /// out << "Save ->" << pack << "-" << letter << " \r";
