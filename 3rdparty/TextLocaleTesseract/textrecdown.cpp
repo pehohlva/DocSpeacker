@@ -9,9 +9,22 @@
 #include <QTextCodec>
 #include "textrec.h"
 #include "textrechander.h"
+#include "textrec_config.h"
 
 
 using namespace TracTesserActText;
+#ifndef __EXTTESSAPP__
+qFatal("config not load");
+#endif
+#ifndef __APPNAME__
+qFatal("config not load");
+#endif
+#ifndef __DIRBUILDTESSY__
+qFatal("config not load");
+#endif
+#ifndef __DIRBASICTESSY__
+qFatal("config not load");
+#endif
 
 
 TextRecDown::TextRecDown(QObject *parent) : QObject(parent) ,

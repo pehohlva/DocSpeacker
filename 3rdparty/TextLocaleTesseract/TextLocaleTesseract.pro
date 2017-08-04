@@ -29,7 +29,8 @@ TEMPLATE = app
 SOURCES += main.cpp \
     textrec.cpp \
     textrecdown.cpp \
-    textrechander.cpp
+    textrechander.cpp \
+    database_language_tess.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -46,8 +47,9 @@ HEADERS += \
     textrec.h \
     textrecdown.h \
     textrechander.h \
-    textrec_config.h
+    textrec_config.h \
+    database_language_tess.h
 
 DISTFILES += \
     AAsnip.txt \
-    maintext.txt version_status
+    maintext.txt version_status textrec_config.h

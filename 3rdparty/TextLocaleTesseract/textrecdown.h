@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QPair>
 #include "textrec.h"
+#include "textrec_config.h"
+
 
 typedef QPair<QString,QString> PaarString;
 typedef QVector<PaarString > Vector_Ass;
@@ -11,8 +13,8 @@ typedef QVector<QLocale> Vector_Qlocal;
 typedef QVector<QString> Vector_Qstring;
 typedef QTextStream Echo; /// out(stdout)
 
-#define __TESSHEXSEPARATOR__ \
-              QByteArray(';')
+
+
 
 
 static inline QString QTUTF8decode( const char* t ) {

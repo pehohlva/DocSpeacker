@@ -2,6 +2,9 @@
 #define TEXTREC_H
 #include "textrec_config.h"
 
+#include "database_language_tess.h"
+
+
 
 static QString bytesToSize(const qint64 size) {
     if (size < 0)
@@ -29,24 +32,6 @@ static bool is_Latin( const QByteArray array ) {
 }
 
 
-#define CHECKTIME(x)  \
-    QElapsedTimer CONCAT(sb_, __LINE__); \
-    CONCAT(sb_, __LINE__).start(); \
-    x \
-    qDebug() << __FUNCTION__ << ":" << __LINE__ << " Elapsed time: " <<  CONCAT(sb_, __LINE__).elapsed() << " ms.";
-
-
-
-
-/*  // usage of this macro
-    CHECKTIME(
-    // any code
-    for (int i=0; i<1000; i++)
-    {
-       timeConsumingFunc();
-    }
-)
-  */
 
 
 class RamStream
