@@ -4,7 +4,6 @@
 #include "remainwin.h"
 #include "re_application_setting.h"
 
-#include "re_speacker.h"
 
 
 #define rdoc  (static_cast<RDoc*>(QCoreApplication::instance()))

@@ -1,8 +1,10 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2017-07-24T17:25:19
-#
-#-------------------------------------------------
+
+!include( ../root.pri ) {
+message( "root.pri not found" )
+}
+
+
+
 
 QT       += core gui xml concurrent pdfium
 
@@ -49,12 +51,11 @@ TARGET = DocSpeacker
 }
 
 
-SOURCES += main.cpp redoc.cpp remainwin.cpp \
-    re_speacker.cpp
+SOURCES += main.cpp redoc.cpp remainwin.cpp
 HEADERS += redoc.h remainwin.h re_application_setting.h \
-    re_speacker.h
 
-# only to library destination at end !
+
+# only to library destination at end !  re_speacker.h  re_speacker.cpp
 SOURCES += st_lib/zipdoc.cpp \
            st_lib/documenthandler.cpp
 
@@ -64,10 +65,20 @@ HEADERS += st_lib/zipdoc.h \
         st_lib/documenthandler.h
 
 
-
-
 DISTFILES += docspeacker.icns \
     pkginfo \
     Info.plist.template
 
 RESOURCES += inlinefolder.qrc
+
+DESTDIR	+= $$BUILD_TREE_PATH
+DEPENDPATH += .
+INCLUDEPATH += .
+
+
+
+
+
+
+
+

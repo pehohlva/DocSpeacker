@@ -7,21 +7,45 @@
 #include <iostream>
 #include "database_language_tess.h"
 #include"textrec_config.h"
-/*
 
-struct TessLocale
-{
-    int lang;
-    int coun;
-};
-//// LocaleListItem item = g_locale_list[index.row() - 2];
-*/
 
 int main(int argc, char *argv[])
 {
+   //// Echo out(stdout,QIODevice::WriteOnly);
+
+#ifndef HELPERTOOLFORFILE_DB
+qFatal("config not load HELPERTOOLFORFILE_DB here only tool helper to create file...");
+#else
+qDebug() << "HELPERTOOLFORFILE_DB";
+#endif
+
+QTextStream out(stdout,QIODevice::WriteOnly);
+/* inside qmake file pro
+macx:DEFINES += MACOSX_ROOT
+win32:DEFINES += WINOSX_ROOT
+unix:DEFINES += LINUXOSX_ROOT
+QMake version 3.1
+Using Qt version 5.9.1 in /Users/dev/Applications/qt5.9.1/lib
+ */
+
+#ifdef MACOSX_ROOT
+out << "Hi MAC OSX User: " << __DATE__ << endl; /// mac play this
+#endif
+
+#ifdef WINOSX_ROOT
+out << "Hi Window User: " << __DATE__ << endl;
+#endif
+
+#ifndef Q_WS_MAC
+#ifdef LINUXOSX_ROOT
+   out << "Hi Linux User: " << __DATE__ << endl; /// mac play this??
+#endif
+#endif
+
+
   QCoreApplication app(argc, argv);
   QStringList order = app.arguments();
-  Echo out(stdout,QIODevice::WriteOnly);
+
   TracTesserActText::TessLocale item = TracTesserActText::t_locale_list[10];
   const int summlang = TracTesserActText::tottesslocale;
   int pointer = 1;

@@ -1,6 +1,23 @@
 #ifndef TESSAPPONFIGCORE_H
 #define TESSAPPONFIGCORE_H
 
+#ifdef Q_WS_MAC
+#ifdef MACOSX_ROOT
+#include "TargetConditionals.h"
+#include "sys_macosx.h"
+#endif
+#endif
+
+#ifndef Q_WS_MAC
+#ifdef LINUXOSX_ROOT
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
+#include "sys_linuxg.h"
+#endif
+#endif
+
+
 #include <QtAlgorithms>
 #include <QString>
 #include <QChar>
@@ -60,20 +77,26 @@ const int LATIN_EXTE_STOP_POINT = 65533;  // at end from all unicode list??
 #define __EXTTESSAPP__ \
               QString(".tess")
 
-//// QString(QString(QDir::home()) + QString("/"))
-
 #define _USERHOME_ \
                QString("/Users/dev/")
 
 #define __DIRBASICTESSY__ \
-              _USERHOME_ + QString("Applications/Language/Tess/")
+              _USERHOME_ + QString("Applications/Language/Tess/")  /// only Mac
 
 #define __DIRBUILDTESSY__ \
-               _USERHOME_ +  QString(".tess/language/")
+               _USERHOME_ +  QString(".tess/language/")  /// mac + linux
+
+
+/* ................................................................ */
+#ifdef WINOSX_ROOT
+/* wait please other config */
+#endif
 
 
 
 
+
+#ifdef HELPERTOOLFORFILE_DB
 static QString html_encode(const QString& str, int modus = 1) {
 
     QString chr;
@@ -106,34 +129,33 @@ static QString lang_encode(const QString& str ) {
 }
 
 
+#else
+
+
+
+static QString html_encode(const QString& str) {
+
+    QStringList list = QStringList();
+    for (int i = 0; i < str.size(); ++i) {
+        QChar fox(str[i]);
+        const ushort code = fox.unicode();
+        QString s = QString::number(code);
+             list << "&#" + s + ";";
+        }
+
+   return list.join("");
+}
+
+#endif
+
+
+
+
+
 typedef QPair<QString,QString> RootScript;
 typedef QVector<RootScript > Locale_Script;
 
 
-
-
-
-
-
-
-#define CHECKTIME(x)  \
-    QElapsedTimer CONCAT(sb_, __LINE__); \
-    CONCAT(sb_, __LINE__).start(); \
-    x \
-    qDebug() << __FUNCTION__ << ":" << __LINE__ << " Elapsed time: " <<  CONCAT(sb_, __LINE__).elapsed() << " ms.";
-
-
-
-
-/*  // usage of this macro
-    CHECKTIME(
-    // any code
-    for (int i=0; i<1000; i++)
-    {
-       timeConsumingFunc();
-    }
-)
-  */
 
 
 

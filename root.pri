@@ -38,7 +38,12 @@ macx {
 
 }
 
+macx:DEFINES += MACOSX_ROOT
+win32:DEFINES += WINOSX_ROOT
+unix:DEFINES += LINUXOSX_ROOT
+
+
 
 LIB_TREE_PATH = $$BUILD_TREE_PATH/lib
 message(Libs install dir  $$LIB_TREE_PATH)
-message(All app and helper tool go to $$BUILD_TREE_PATH/bin )
+message(All app and helper tool go to $$BUILD_TREE_PATH )

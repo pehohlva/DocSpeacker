@@ -1,3 +1,21 @@
+
+!include( ../../root.pri ) {
+message( "root.pri not found" )
+}
+
+DEFINES += DEF-T
+message( "DEV-T - Developed Unnecessary Traffic you find all new inside QT5" )
+
+
+
+INCLUDEPATH += $$BUILD_TREE_PATH/src
+
+CONFIG += create_prl
+
+# only for database_language_tess.h to include in big main App  Q_OS_MAC
+DEFINES += HELPERTOOLFORFILE_DB
+
+
 QT += core texttospeech  network xml gui
 
 CONFIG += c++11
@@ -43,6 +61,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+
+macx:HEADERS += sys_macosx.h
+win32:HEADERS +=
+unix:HEADERS += sys_linuxg.h
+
+
+
 HEADERS += \
     textrec.h \
     textrecdown.h \
@@ -53,5 +78,9 @@ HEADERS += \
 DISTFILES += \
     AAsnip.txt \
     maintext.txt version_status
+
+
+
+
 
 # textrec_config.h
