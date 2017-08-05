@@ -80,6 +80,9 @@ const int LATIN_EXTE_STOP_POINT = 65533;  // at end from all unicode list??
 #define _USERHOME_ \
                QString("/Users/dev/")
 
+#define _GITAGVER_ \
+               QString("v0.3.2")
+
 #define __DIRBASICTESSY__ \
               _USERHOME_ + QString("Applications/Language/Tess/")  /// only Mac
 
