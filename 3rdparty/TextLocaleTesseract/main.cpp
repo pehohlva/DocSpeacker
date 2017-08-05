@@ -25,19 +25,18 @@ int main(int argc, char *argv[])
   TracTesserActText::TessLocale item = TracTesserActText::t_locale_list[10];
   const int summlang = TracTesserActText::tottesslocale;
   int pointer = 1;
-
-     out << "Value of __DATE__ : " << __DATE__ << endl;
+  int smp_block_data = 27*3*sizeof(unsigned short);
+     out << "Value of smp_block_data : " << smp_block_data << endl;
+     out << "Value of sizeof(uint) : " << sizeof(uint) << endl;
+     out << "Value of sizeof(unsigned short) : " << sizeof(unsigned short) << endl;
      out << "Value of __TIME__ : " << __TIME__ << endl;
 
      TracTesserActText::Class_TessDataLang hi;
-     //// hi.writedbline();
-     hi.number_go_Name(2);
-     hi.number_go_Name(3);
-     hi.number_go_Name(4);
-     hi.number_go_Name(5);
-     hi.number_go_Name(6);
-
-
+     //// set_language_tess( int id , QString & nt , QString & ctess )
+     QString name = hi.tessTranslate(8);
+                   QStringList itemline = name.split(QRegExp("#"), QString::SkipEmptyParts);
+     out << "Value name->size:name->str : " << name.size() << ":" << name << endl;
+     out << "Value : " << name.size() << ":" << itemline.at(0)  << "-" << itemline.at(1) << endl;
      out << "Value of __DATE__ : " << __DATE__ << endl;
      out << "Value of __TIME__ : " << __TIME__ << endl;
 

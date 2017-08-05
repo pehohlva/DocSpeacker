@@ -19,28 +19,58 @@ static QStringList decodeBB(const QString& str ) {
 
 Class_TessDataLang::Class_TessDataLang() {  }
 
-void Class_TessDataLang::tessTranslate( const int qtlocale_nr ) {
-
-  const int oneline_row = fullrangedb;
-  const int tot_line = summsupport_tess_language;
+QString Class_TessDataLang::tessTranslate( const int qtlocale_nr ) {
+  return number_go_Name(qtlocale_nr);
 }
-
 
 QString Class_TessDataLang::getLocaleData(const ushort *data, int size)
 {
+    Q_ASSERT(size > 3);           //// QChar(uint rc) unicode nr.
     return QString::fromRawData(reinterpret_cast<const QChar*>(data), size);
 }
 
-QString Class_TessDataLang::number_go_Name( const int i )  /// 2
+uint Class_TessDataLang::take_line( const int qtlocale_nr , int wo ) {
+
+     int i = -1;
+     int need =0;
+     do
+       {
+         i++;
+         TessSpeack ttra = tra_tess_list[i];
+         const uint la = ttra.lang;
+         //// qDebug() << "loop-> :" <<  la;
+           if (qtlocale_nr == la) {
+             const uint db = ttra.dbline;
+             //// qDebug() << "take_line -> found line:" <<  db;
+             need = db;
+             return need;
+           }
+          }while( i < summsupport_tess_language);
+
+     return need;
+}
+
+void Class_TessDataLang::set_language_tess( int id , QString & nt , QString & ctess ) {
+
+  QString name = this->tessTranslate(id);
+                QStringList rec = name.split(QRegExp("#"), QString::SkipEmptyParts);
+                Q_ASSERT(rec.size() == 2);
+                nt=rec.at(1);
+                ctess=rec.at(0);
+}
+
+QString Class_TessDataLang::number_go_Name(const int i , int wo)  /// 2
 {
+   const int chunkline = this->take_line(i,0);
    quint32 idx, size;
-   const int oneline_row = fullrangedb;
-   const int tot_line = summsupport_tess_language;
-   idx = 29 * i;
-   size = 29;
-   qDebug() << "cursor:" <<  idx << " size;" << size;
+   idx = fullrangedb * chunkline;
+   size = fullrangedb - 2; //max size
+   //// qDebug() << "cursor:" <<  idx << " size;" << size;
    QString now = this->getLocaleData(DB::tessy_db_translate + idx,size);
-   qDebug() << " now:" <<  now;
+   //// qDebug() << " now:" <<  now;
+     if (now.size() > 0) {
+      return now;
+     }
    return QString();
 }
 
@@ -53,7 +83,7 @@ void Class_TessDataLang::writedbline() {
    int i=-1;
    int sizemaxline=1;
    const int filldefault = 50 + 10;
-   QChar zero(20);
+   QChar zero(35);
    const QByteArray linetranslate = QByteArray("").fill(zero.toLatin1(),filldefault);
    QString blob = QString("\n\n\nstatic const ushort tessy_db_translate[] = { \n");
     do {   /// i love do..
@@ -105,7 +135,7 @@ void Class_TessDataLang::writedbline() {
 
 
 
-
+/* only need to generate db private from class  */
 void Class_TessDataLang::set_language_native( int id , QString & nt , QString & ctess ) {
 
   /*  Tesseract has unicode (UTF-8) support, and can recognize more than 100 languages "out of the box".

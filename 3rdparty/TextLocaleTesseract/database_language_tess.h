@@ -361,17 +361,27 @@ public:
   };
 
   Class_TessDataLang();
-  QString number_go_Name( const int i );
-  void writedbline();
-  QString getLocaleData(const ushort *data, int size);
-  void tessTranslate( const int qtlocale_nr );
-  //// void Class_TessDataLang::tessTranslate( const int qtlocale_nr )
+  QString number_go_Name( const int i , int wo = 0);
+  QString tessTranslate( const int qtlocale_nr );
+  void set_language_tess( int id , QString & nt , QString & ctess );
+
+
+private:
+  uint take_line(const int qtlocale_nr  , int wo = 1);
   void set_language_native( int id , QString & nt , QString & ctess );
+  QString getLocaleData(const ushort *data, int size);
+  void writedbline(); //// only dev
 
 };
 
 
+/*  TracTesserActText::Class_TessDataLang hi;
+     //// hi.writedbline();
+     QString name = hi.number_go_Name(58);
+                   QStringList item = name.split(QRegExp("#"), QString::SkipEmptyParts);
 
+
+*/
 
 
 
