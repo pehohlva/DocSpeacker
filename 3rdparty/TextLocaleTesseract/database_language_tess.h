@@ -14,8 +14,6 @@ namespace TracTesserActText {
 
 
 
-
-
 /* qt locale id  */
 struct TessLocale
 {
@@ -73,10 +71,10 @@ const TessSpeack tra_tess_list[] = {
       {     0,      0 }, // null
       {     0,      0 }, // null
       {     0,      0 }, // null
-      {     111,     41 }, // spa
-      {     114,     42 }, // swe
-      {     120,     43 }, // tha
-      {     125,     44 }, // tur
+      {     111,    41 }, // spa
+      {     114,    42 }, // swe
+      {     120,    43 }, // tha
+      {     125,    44 }, // tur
       {     0,      0 }, // null
       {     0,      0 }, // null
       {     0,      0 }, // null

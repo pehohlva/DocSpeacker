@@ -20,15 +20,8 @@ qDebug() << "HELPERTOOLFORFILE_DB";
 #endif
 
 QTextStream out(stdout,QIODevice::WriteOnly);
-/* inside qmake file pro
-macx:DEFINES += MACOSX_ROOT
-win32:DEFINES += WINOSX_ROOT
-unix:DEFINES += LINUXOSX_ROOT
-QMake version 3.1
-Using Qt version 5.9.1 in /Users/dev/Applications/qt5.9.1/lib
- */
 
-#ifdef MACOSX_ROOT
+#ifdef Q_OS_MAC
 out << "Hi MAC OSX User: " << __DATE__ << endl; /// mac play this
 #endif
 
@@ -36,7 +29,7 @@ out << "Hi MAC OSX User: " << __DATE__ << endl; /// mac play this
 out << "Hi Window User: " << __DATE__ << endl;
 #endif
 
-#ifndef Q_WS_MAC
+#ifndef Q_OS_MAC
 #ifdef LINUXOSX_ROOT
    out << "Hi Linux User: " << __DATE__ << endl; /// mac play this??
 #endif
@@ -45,26 +38,25 @@ out << "Hi Window User: " << __DATE__ << endl;
 
   QCoreApplication app(argc, argv);
   QStringList order = app.arguments();
+  //// QStringList dirlistener = app.arguments();
+  QLocale sys;
+  sys.c();
+  
+  QStringList il = sys.uiLanguages();
+   int pointer =-1;
+    do {
+          pointer++;
+          QString nameb;
+          nameb = QLocale::countryToString(reinterpret_cast<QLocale::Country>(pointer));
+          out << "value:" << nameb << endl;
+          
+	  } while( pointer <  257);
 
-  TracTesserActText::TessLocale item = TracTesserActText::t_locale_list[10];
-  const int summlang = TracTesserActText::tottesslocale;
-  int pointer = 1;
-  int smp_block_data = 27*3*sizeof(unsigned short);
-     out << "Value of smp_block_data : " << smp_block_data << endl;
-     out << "Value of sizeof(uint) : " << sizeof(uint) << endl;
-     out << "Value of sizeof(unsigned short) : " << sizeof(unsigned short) << endl;
-     out << "Value of __TIME__ : " << __TIME__ << endl;
+      return 0; 
 
-     TracTesserActText::Class_TessDataLang hi;
-     //// set_language_tess( int id , QString & nt , QString & ctess )
-     QString name = hi.tessTranslate(8);
-                   QStringList itemline = name.split(QRegExp("#"), QString::SkipEmptyParts);
-     out << "Value name->size:name->str : " << name.size() << ":" << name << endl;
-     out << "Value : " << name.size() << ":" << itemline.at(0)  << "-" << itemline.at(1) << endl;
-     out << "Value of __DATE__ : " << __DATE__ << endl;
-     out << "Value of __TIME__ : " << __TIME__ << endl;
-
-     return 0;
+  
+    ////TextRecDown hello;
+    ///  QTimer::singleShot(0, &hello, SLOT(init_listing()));
 
   return app.exec();
 }

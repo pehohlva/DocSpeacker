@@ -12,7 +12,7 @@ INCLUDEPATH += $$BUILD_TREE_PATH/src
 
 CONFIG += create_prl
 
-# only for database_language_tess.h to include in big main App  Q_OS_MAC
+# only for database_language_tess.h to include in big main App  
 DEFINES += HELPERTOOLFORFILE_DB
 
 
@@ -20,7 +20,7 @@ QT += core texttospeech  network xml gui
 
 CONFIG += c++11
 
-TARGET = opnosi
+TARGET = xx
 CONFIG += console
 CONFIG -= app_bundle
 
@@ -80,7 +80,3 @@ DISTFILES += \
     maintext.txt version_status
 
 
-
-
-
-# textrec_config.h

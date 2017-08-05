@@ -1,23 +1,15 @@
 #ifndef TESSAPPONFIGCORE_H
 #define TESSAPPONFIGCORE_H
 
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
 #ifdef MACOSX_ROOT
 #include "TargetConditionals.h"
 #include "sys_macosx.h"
 #endif
 #endif
 
-#ifndef Q_WS_MAC
-#ifdef LINUXOSX_ROOT
-#include <unistd.h>
-#include <sys/types.h>
-#include <pwd.h>
-#include "sys_linuxg.h"
-#endif
-#endif
 
-
+#include <iterator>
 #include <QtAlgorithms>
 #include <QString>
 #include <QChar>
@@ -78,7 +70,7 @@ const int LATIN_EXTE_STOP_POINT = 65533;  // at end from all unicode list??
               QString(".tess")
 
 #define _USERHOME_ \
-               QString("/Users/dev/")
+               QString(QDir::homePath()+"/")
 
 #define _GITAGVER_ \
                QString("v0.3.2")
@@ -91,12 +83,6 @@ const int LATIN_EXTE_STOP_POINT = 65533;  // at end from all unicode list??
 
 
 /* ................................................................ */
-#ifdef WINOSX_ROOT
-/* wait please other config */
-#endif
-
-
-
 
 
 #ifdef HELPERTOOLFORFILE_DB

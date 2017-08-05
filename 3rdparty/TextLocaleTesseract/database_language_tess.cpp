@@ -23,6 +23,12 @@ QString Class_TessDataLang::tessTranslate( const int qtlocale_nr ) {
   return number_go_Name(qtlocale_nr);
 }
 
+
+
+
+
+
+
 QString Class_TessDataLang::getLocaleData(const ushort *data, int size)
 {
     Q_ASSERT(size > 3);           //// QChar(uint rc) unicode nr.

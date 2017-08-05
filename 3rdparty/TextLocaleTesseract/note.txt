@@ -1,2 +1,94 @@
 fammi sapere quando dimentichi di aggiungere file..
 
+
+  TracTesserActText::TessLocale item = TracTesserActText::t_locale_list[10];
+  const int summlang = TracTesserActText::tottesslocale;
+  int pointer = 1;
+  int smp_block_data = 27*3*sizeof(unsigned short);
+     out << "Value of smp_block_data : " << smp_block_data << endl;
+     out << "Value of sizeof(uint) : " << sizeof(uint) << endl;
+     out << "Value of sizeof(unsigned short) : " << sizeof(unsigned short) << endl;
+     out << "Value of __TIME__ : " << __TIME__ << endl;
+
+     TracTesserActText::Class_TessDataLang hi;
+     //// set_language_tess( int id , QString & nt , QString & ctess )
+     QString name = hi.tessTranslate(8);
+                   QStringList itemline = name.split(QRegExp("#"), QString::SkipEmptyParts);
+     out << "Value name->size:name->str : " << name.size() << ":" << name << endl;
+     out << "Value : " << name.size() << ":" << itemline.at(0)  << "-" << itemline.at(1) << endl;
+     out << "Value of __DATE__ : " << __DATE__ << endl;
+     out << "Value of __TIME__ : " << __TIME__ << endl;
+
+     return 0;
+     
+     
+     
+     -------------
+
+
+#include <QCoreApplication>
+#include <QString>
+#include <QChar>
+#include <QStringList>
+#include <QDebug>
+#include "lchar.h"
+#include "textrec.h"
+#include "textrecdown.h"
+#include "textrechander.h"
+
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication app(argc, argv);
+    qRegisterMetaType<Tessy>();
+    QStringList dirlistener = app.arguments();
+    TextRecDown hello;
+    /*  generate file in language:
+        QTimer::singleShot(0, &hello, SLOT(onefile_handler()));
+    */
+
+    /*  download language item:
+        QTimer::singleShot(0, &hello, SLOT(onefile_handler()));
+    */
+
+    QTimer::singleShot(0, &hello, SLOT(init_listing()));
+     return app.exec();
+}
+
+
+
+------
+
+
+
+#include <QCoreApplication>
+#include "textrec.h"
+#include "textrecdown.h"
+#include "textrechander.h"
+
+#include <iostream>
+#include <vector>
+#include <clocale>
+#include <cwchar>
+
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
+
+
+using namespace std;
+
+
+
+int main(int argc, char *argv[])
+{
+  QCoreApplication a(argc, argv);
+  qRegisterMetaType<Tessy>();
+  TextRecDown hello;
+  QTimer::singleShot(0, &hello, SLOT(onefile_handler()));
+   return a.exec();
+}
+
+
+

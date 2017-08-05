@@ -15,28 +15,9 @@ lessThan(QT_VER_MAJ, 5) | lessThan(QT_VER_MIN,8) | lessThan(QT_VER_PAT,1) {
    message(..ok qt version..)
 }
 
-#### try to find out in qt 5.9.2 include <QtDeclarative>
-#### QT += declarative
-message(Now define BUILD_TREE_PATH to =  $$PWD)
-
-win32 {
-    ########## window no pwd  #############
-    BUILD_TREE_PATH = $$PWD
-    message(Window path  $$BUILD_TREE_PATH)
-    CONFIG +=   qt warn_off silent release
-}
 
 
-unix {
-    BUILD_TREE_PATH = $$PWD
-    message(Unix path  $$BUILD_TREE_PATH)
-}
-
-macx {
-    BUILD_TREE_PATH = $$PWD
-    message(Mac path $$BUILD_TREE_PATH)
-
-}
+BUILD_TREE_PATH = $$PWD
 
 macx:DEFINES += MACOSX_ROOT
 win32:DEFINES += WINOSX_ROOT
@@ -46,4 +27,3 @@ unix:DEFINES += LINUXOSX_ROOT
 
 LIB_TREE_PATH = $$BUILD_TREE_PATH/lib
 message(Libs install dir  $$LIB_TREE_PATH)
-message(All app and helper tool go to $$BUILD_TREE_PATH )

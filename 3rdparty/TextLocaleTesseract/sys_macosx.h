@@ -5,7 +5,7 @@
 #include <QElapsedTimer>
 #include <CoreServices/CoreServices.h>
 #include <CoreFoundation/CFBundle.h>
-#include <UIKit/UIKit.h>
+
 
 
 
