@@ -2,28 +2,95 @@
 #define TESSDATABASELANGUAGE_H
 
 #include <QObject>
-
 #include <QLocale>
 #include <QDate>
 #include <QtCore>
-
+#include "textrec_config.h"
 #include <qdebug.h>
+#include "textrec.h"
 
 namespace TracTesserActText {
    // conflict on QLocale #include <QtCore/qglobal.h> /qglobal.h
 
 
 
-static inline QString getTessDataStore(const ushort *data, int size)
-{
-    return size > 0 ? QString::fromRawData(reinterpret_cast<const QChar *>(data), size) : QString();
-}
 
+
+/* qt locale id  */
 struct TessLocale
 {
-    int lang;
-    int coun;
+    int lang;  // language
+    int coun;  // country
 };
+/* qt locale associate  */
+struct TessSpeack
+{
+    int lang;  // language
+    int dbline; // which db line to find data to associate x 30 -1; line white
+};
+
+static const int fullrangedb = 29; /// 100 line from zero
+
+const TessSpeack tra_tess_list[] = {
+      {     0,      0 }, // null
+      {     0,     1 }, // lat latin
+      {     8,     2 }, // ara arabic
+      {     28,     3 }, // ces
+      {     25,     4 }, // chi_sim
+      {     29,     5 }, // dan
+      {     42,     6 }, // deu
+      {     31,     7 }, // en
+      {     36,     8 }, // fin
+      {     37,     9 }, // fra
+      {     0,      0 }, // null
+      {     48,     11 }, // heb
+      {     49,     12 }, // hin
+      {     0,      0 }, // null
+      {     50,     14 }, // hun
+      {     52,     15 }, // ind
+      {     58,     16 }, // ita
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     59,     22 }, // jpn
+      {     66,     23 }, // kor
+      {     30,     24 }, // nld
+      {     85,     25 }, // nor
+      {     90,     26 }, // pol
+      {     91,     27 }, // por
+      {     95,     28 }, // ron
+      {     96,     29 }, // rus
+      {     108,    30 }, // slk
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     111,     41 }, // spa
+      {     114,     42 }, // swe
+      {     120,     43 }, // tha
+      {     125,     44 }, // tur
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     0,      0 }, // null
+      {     43,    55 }, // gre //// the simply by discovery
+};
+
+static const int summsupport_tess_language = sizeof(tra_tess_list)/sizeof(tra_tess_list[0]);
 
 const TessLocale t_locale_list[] = {
     {      1,     0 }, // C/AnyCountry
@@ -258,40 +325,57 @@ const TessLocale t_locale_list[] = {
 static const int tottesslocale = sizeof(t_locale_list)/sizeof(t_locale_list[0]);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class TessDataLang : public QObject
+class Class_TessDataLang
 {
-  Q_OBJECT
 public:
-  explicit TessDataLang(QObject *parent = nullptr);
+  enum Supported {
+      lat = 0, // latin is on Greek dir .. see last!
+      ara = 8,
+      ces = 28,
+      chi_sim = 25,
+      dan = 29,
+      deu = 42,
+      eng = 31,
+      fin = 36,
+      fra = 37,
+      heb = 48,
+      hin = 49,
+      hun = 50,
+      ind = 52,
+      ita = 58,
+      jpn = 59,
+      kor = 66,
+      nld = 30,
+      nor = 85,
+      pol = 90,
+      por = 91,
+      ron = 95,
+      rus = 96,
+      slk = 108,
+      spa = 111,
+      swe = 114,
+      tha = 120,
+      tur = 125,
+      /// gre = 43, /// no file from ocr tessdata Greek
+      nul = lat,
+  };
 
-signals:
+  Class_TessDataLang();
+  QString number_go_Name( const int i );
+  void writedbline();
+  QString getLocaleData(const ushort *data, int size);
+  void tessTranslate( const int qtlocale_nr );
+  //// void Class_TessDataLang::tessTranslate( const int qtlocale_nr )
+  void set_language_native( int id , QString & nt , QString & ctess );
 
-public slots:
 };
+
+
+
+
 
 
 }
 
 
-#endif // TessDataLang_H
+#endif // Class_TessDataLang_H

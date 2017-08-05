@@ -52,4 +52,6 @@ HEADERS += \
 
 DISTFILES += \
     AAsnip.txt \
-    maintext.txt version_status textrec_config.h
+    maintext.txt version_status
+
+# textrec_config.h

@@ -16,12 +16,6 @@ typedef QTextStream Echo; /// out(stdout)
 
 
 
-
-static inline QString QTUTF8decode( const char* t ) {
-   qWarning() << "Not secure here!." << __FUNCTION__<<":" <<  __FILE__ << ":" << __LINE__;
-   return QObject::trUtf8(t);
-}
-
 /* classe per trasformare le varie lingue in un database solo cosa serve a riconoscere i testi  */
 
 class TextRecDown : public QObject
