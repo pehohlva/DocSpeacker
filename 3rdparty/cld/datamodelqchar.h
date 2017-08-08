@@ -249,23 +249,24 @@ static void initScriptMap()
 
 
 
-QSet<QString> qlocaleList() {
-	   
-	   	   QList<QLocale> allLocales = QLocale::matchingLocales(
-            QLocale::AnyLanguage,
-            QLocale::AnyScript,
-            QLocale::AnyCountry);
-            
-							QSet<QString> isoLanguages;
+QSet < QString > qlocaleList() {
 
-							for(const QLocale &locale : allLocales) {
-								isoLanguages.insert(locale.bcp47Name());
-							}
+  QList < QLocale > allLocales = QLocale::matchingLocales(
+    QLocale::AnyLanguage,
+    QLocale::AnyScript,
+    QLocale::AnyCountry);
 
-               /// qDebug() << isoLanguages;
-	   
-	  return isoLanguages;
-   }
+  QSet < QString > isoLanguages;
+
+  for (const QLocale & locale: allLocales) {
+    isoLanguages.insert(locale.bcp47Name());
+  }
+
+  /// qDebug() << isoLanguages;
+
+  return isoLanguages;
+}
+
 
 
 class RangeClass
@@ -285,50 +286,51 @@ RangeClass::RangeClass()
 }
 
 
-QString RangeClass::getnameScriptQChar( const ushort unicode )  { //// uniode in
-	
-	                            QChar vox(unicode);
-								 //// ushort Unn = vox.unicode();
-								QString letterqq = QString().append(vox);
-								QChar::Script typecha = vox.script();
-								//// int Sesript = vox.script();
-								QByteArray scriptname = scriptMap.key(typecha);
-								const QString scriptid = QString::fromUtf8(scriptname.constData());
-								if (scriptid.size() !=0) {
-									return scriptid;
-								} else {
-									qFatal("Unhandled unicode property value: %d",unicode);
-								}
-	return QString();
+QString RangeClass::getnameScriptQChar(const ushort unicode) { //// uniode in
+
+  QChar vox(unicode);
+  //// ushort Unn = vox.unicode();
+  QString letterqq = QString().append(vox);
+  QChar::Script typecha = vox.script();
+  //// int Sesript = vox.script();
+  QByteArray scriptname = scriptMap.key(typecha);
+  const QString scriptid = QString::fromUtf8(scriptname.constData());
+  if (scriptid.size() != 0) {
+    return scriptid;
+  } else {
+    qFatal("Unhandled unicode property value: %d", unicode);
+  }
+  return QString();
 }
 
 
-void RangeClass::getPercentageScript( const QString text , QStringList & rec )  { 
-	
-	   std::map<std::string, int, std::greater<std::string> > countscripting;
-	   int xcsize =0;
-	           for (int o = 0; o < text.size(); o++) {
-					const QChar vox(text.at(o));
-					const ushort unico = vox.unicode();
-					QString scripter = this->getnameScriptQChar(unico);
-					if ("Inherited" !=scripter && "Common" !=scripter ) {
-					    std::string scristr = scripter.toUtf8().constData();
-						++countscripting[scristr];
-						xcsize++; /// new size space out e inherit
-					   //// qDebug() <<"L " << unico <<   " - " << scripter  << " - "  << vox.script();
-					   }
-							              
-					}
-					//// qDebug() <<"L xsize" << xsize <<   " - " << xcsize;
-					std::map<std::string,int>::const_iterator iter;  
-					for( iter = countscripting.begin(); iter != countscripting.end(); iter++ ) {
-						int perhe =  iter->second / (xcsize / 100);
-						if (perhe > 49) {
-						HitScript *current = new HitScript(iter->first,xcsize,perhe);
-						rec << current->print();
-						//// std::cout <<  "tot" << xcsize << " ->%" << perhe << " - " << iter->second << " string: " << iter->first << std::endl;
-					 }
-				    }
+
+void RangeClass::getPercentageScript(const QString text, QStringList & rec) {
+
+  std::map < std::string, int, std::greater < std::string > > countscripting;
+  int xcsize = 0;
+  for (int o = 0; o < text.size(); o++) {
+    const QChar vox(text.at(o));
+    const ushort unico = vox.unicode();
+    QString scripter = this - > getnameScriptQChar(unico);
+    if ("Inherited" != scripter && "Common" != scripter) {
+      std::string scristr = scripter.toUtf8().constData();
+      ++countscripting[scristr];
+      xcsize++; /// new size space out e inherit
+      //// qDebug() <<"L " << unico <<   " - " << scripter  << " - "  << vox.script();
+    }
+
+  }
+  //// qDebug() <<"L xsize" << xsize <<   " - " << xcsize;
+  std::map < std::string, int > ::const_iterator iter;
+  for (iter = countscripting.begin(); iter != countscripting.end(); iter++) {
+    int perhe = iter - > second / (xcsize / 100);
+    if (perhe > 49) {
+      HitScript * current = new HitScript(iter - > first, xcsize, perhe);
+      rec << current - > print();
+      //// std::cout <<  "tot" << xcsize << " ->%" << perhe << " - " << iter->second << " string: " << iter->first << std::endl;
+    }
+  }
 }
 
 
