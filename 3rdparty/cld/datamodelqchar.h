@@ -39,6 +39,8 @@
 #include <QStringList>
 #include <QElapsedTimer>
 
+#include "datalanghelp.h"
+
 
 /* usage from this 
  * 
@@ -249,23 +251,7 @@ static void initScriptMap()
 
 
 
-QSet < QString > qlocaleList() {
 
-  QList < QLocale > allLocales = QLocale::matchingLocales(
-    QLocale::AnyLanguage,
-    QLocale::AnyScript,
-    QLocale::AnyCountry);
-
-  QSet < QString > isoLanguages;
-
-  for (const QLocale & locale: allLocales) {
-    isoLanguages.insert(locale.bcp47Name());
-  }
-
-  /// qDebug() << isoLanguages;
-
-  return isoLanguages;
-}
 
 
 
@@ -275,6 +261,8 @@ public:
   RangeClass();
   void getPercentageScript( const QString text , QStringList & rec );
   QString getnameScriptQChar( const ushort unicode );
+  void wr_47854g76b64( const QString f ); /// only to write actual new QLocaleData if chance.
+  QSet<QString> qlocaleList();
 };
 
 
@@ -312,7 +300,7 @@ void RangeClass::getPercentageScript(const QString text, QStringList & rec) {
   for (int o = 0; o < text.size(); o++) {
     const QChar vox(text.at(o));
     const ushort unico = vox.unicode();
-    QString scripter = this - > getnameScriptQChar(unico);
+    QString scripter = this->getnameScriptQChar(unico);
     if ("Inherited" != scripter && "Common" != scripter) {
       std::string scristr = scripter.toUtf8().constData();
       ++countscripting[scristr];
@@ -324,25 +312,65 @@ void RangeClass::getPercentageScript(const QString text, QStringList & rec) {
   //// qDebug() <<"L xsize" << xsize <<   " - " << xcsize;
   std::map < std::string, int > ::const_iterator iter;
   for (iter = countscripting.begin(); iter != countscripting.end(); iter++) {
-    int perhe = iter - > second / (xcsize / 100);
+    int perhe = iter->second / (xcsize / 100);
     if (perhe > 49) {
-      HitScript * current = new HitScript(iter - > first, xcsize, perhe);
-      rec << current - > print();
+      HitScript * current = new HitScript(iter->first, xcsize, perhe);
+      rec << current->print();
       //// std::cout <<  "tot" << xcsize << " ->%" << perhe << " - " << iter->second << " string: " << iter->first << std::endl;
     }
   }
 }
 
 
+QSet<QString> RangeClass::qlocaleList() {
+
+  QList < QLocale > allLocales = QLocale::matchingLocales(
+    QLocale::AnyLanguage,
+    QLocale::AnyScript,
+    QLocale::AnyCountry);
+
+  QSet<QString> isoLanguages;
+
+  for (const QLocale & locale: allLocales) {
+    isoLanguages.insert(locale.bcp47Name());
+  }
+
+  /// qDebug() << isoLanguages;
+
+  return isoLanguages;
+}
 
 
+void RangeClass::wr_47854g76b64( const QString f )  {
+	
+	                     /*     RangeClass *jobs = new RangeClass();
+		                  jobs->wr_47854g76b64("../datalang.tmp.txt");
+		                  *  */
 
+    
+		                 QSet<QString> listing = this->qlocaleList();
+		                  /// qDebug() << listing;
+							QString dbdump("\n\n\n\n/* Dataprovider to datalanguage.h grep -R \"DATALANGUAGEPROVIDEQT591_H\"  */\nconst LocaleCurrent Rdb_list[] = {    \n");
+							QSet<QString>::const_iterator i = listing.constBegin();
+							while (i != listing.constEnd()) {
+								QString mb37(*i);
+                                QLocale ax(mb37);
+                                int sidx = ax.script();
+                                int dir = ax.textDirection();
+                                int cc = ax.country();
+                                QString cuba =QLocale::languageToString(ax.language());
+		                      QString line = " { " + QString::number(sidx) + " , " + QString::number(dir) +  " , \'" + QString(ax.bcp47Name()) + \
+		                                   "\' , \'" + cuba + "\' , \'" + QLocale::countryToString(ax.country()) + "\' , " + QString::number( (int)ax.language() ) + " }, \r";
+							    //// qDebug() << line;
+							    dbdump.append(line);
+								++i;
+							}
+                  dbdump.append("}; \n\n\n");
+                  RamStream *ram = new RamStream();
+                  ram->ramwrite(dbdump.toUtf8());
+                  ram->PutOnFile(f);
+                  ram->~RamStream();
 
-
-
-
-
-
-
+}
 
 #endif

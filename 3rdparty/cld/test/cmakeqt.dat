@@ -1,0 +1,41 @@
+
+#find_package(cld)
+#find_library(/usr/local/lib cld) gcc -I. -L/usr/local/lib  -o main.cpp -l
+
+# set (cld_DIR /usr/local/lib)
+#ADD_LIBRARY(cld /usr/local/lib)
+#LINK_DIRECTORIES(/usr/local/lib)
+
+cmake_minimum_required(VERSION 3.9)
+
+
+
+project(oso)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set (CMAKE_CXX_STANDARD 11)
+
+add_definitions(-DSYSTEM_MACOSX)
+#add_definitions(-D define here no space)
+#add_definitions(-DCOMPILE_UNIT_TESTS)
+
+#add_definitions(-SYSTEM_MACOSX)
+
+
+# set(HEADER_FILES sais.hxx)
+
+
+# set(SOURCES file.cpp file2.cpp ${YOUR_DIRECTORY}/file1.h ${YOUR_DIRECTORY}/file2.h)
+# include_directories(include)
+
+find_package(Qt5Core)
+
+
+
+add_executable(${PROJECT_NAME} "main.cpp")
+target_link_libraries(${PROJECT_NAME} Qt5::Core)
+
+
+# set(dir ${CMAKE_ROOT}/build/)
+# SET(CMAKE_CACHEFILE_DIR ${dir})
