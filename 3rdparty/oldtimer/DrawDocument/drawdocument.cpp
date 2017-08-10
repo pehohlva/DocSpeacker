@@ -10,31 +10,30 @@ void DrawDoument::updateDocument() {
   /// QTextDocumentPrivate   cursorPositionChanged
 }
 
-/**/
 DrawDoument::DrawDoument(QWidget * parent):
         QAbstractScrollArea(0),
         lineTimer(0),
         scaleFaktor(1.367),
-        Beeboncontroll(true),
+        Beeboncontroll(false),
         doc(new QTextDocument()),
         portrait_mode(true) {
 
-  lastkeyMETA = false;
-  CursorPosition = 10;
-  doc->setPageSize(QSizeF(MM_TO_POINT(210), MM_TO_POINT(297)));
-  htmlformat = doc->rootFrame()->frameFormat();
-  this->setMinimumHeight(480);
-  this->setMinimumWidth(460);
-  this->resize(900, 499);
-  if (htmlformat.leftMargin() < 10) {
-     this->updateDocument();
-  }
-  this->setContentsMargins(0,0,0,0);
-  setAcceptDrops(true);
-  QTimer::singleShot(700, this, SLOT(LoadFile())); /// not overload painter...
-  connect(doc->documentLayout(), SIGNAL(update(QRectF)),this, SLOT(updatedoc(QRectF)));
-  connect(this, SIGNAL(newdata()),this, SLOT(updateslow()));
-  updateslow();
+        lastkeyMETA = false;
+        CursorPosition = -1;
+        doc->setPageSize(QSizeF(MM_TO_POINT(210), MM_TO_POINT(297)));
+        htmlformat = doc->rootFrame()->frameFormat();
+        this->setMinimumHeight(480);
+        this->setMinimumWidth(460);
+        this->resize(900, 499);
+        if (htmlformat.leftMargin() < 10) {
+           this->updateDocument();
+        }
+        this->setContentsMargins(0,0,0,0);
+        setAcceptDrops(true);
+        QTimer::singleShot(700, this, SLOT(LoadFile())); /// not overload painter...
+        connect(doc->documentLayout(), SIGNAL(update(QRectF)),this, SLOT(updatedoc(QRectF)));
+        connect(this, SIGNAL(newdata()),this, SLOT(updateslow()));
+        updateslow();
 
 
 }
@@ -167,26 +166,24 @@ void DrawDoument::paintgopen(QPainter * painter , int wi , QColor co) {
 }
 
 
-
-
-/*  qreal scaleFaktorksscale = doc;
-  if (event->delta() > 1) {
-    zoomOut();
-  } else {
-    zoomIn();
-  }  */
 void DrawDoument::wheelEvent(QWheelEvent * e) {
-     const int x = e->phase();
-    //// qDebug() <<  __FUNCTION__ << " ->" << vv;
-    if (x != 3) {
-    if (static_cast<QWheelEvent*>(e)->orientation() == Qt::Horizontal) {
+     if (e->phase() !=Qt::ScrollEnd) {
+      if (static_cast<QWheelEvent*>(e)->orientation() == Qt::Horizontal) {
             QApplication::sendEvent(horizontalScrollBar(), e);
        } else {
             QApplication::sendEvent(verticalScrollBar(),e);
+       }
       }
-      }
-}
 
+        if( e->modifiers() & Qt::ShiftModifier )
+         {
+            qDebug() <<  __FUNCTION__ << " ShiftModifier->" << e->KeyRelease << "-";
+         }
+         else if( e->modifiers() & Qt::ControlModifier )
+         {
+            qDebug() <<  __FUNCTION__ << " ControlModifier->" << e->KeyRelease << "-";
+         }
+}
 
 void DrawDoument::paintEditPage(const int index, QPainter * painter) {
   //// painter->save();
@@ -224,18 +221,11 @@ void DrawDoument::triggerFormat() {
   } else {
     doc->setPageSize(QSizeF(MM_TO_POINT(297), MM_TO_POINT(210)));
   }
-  adjustScrollbars();
-  viewport()->update();
+    emit newdata();
 }
 
 
-void DrawDoument::fitToLarge() {
-  /// adjustScrollbars();
-  qreal posibel = viewport()->width();
 
-  qreal scaleFaktor;
-
-}
 
 void DrawDoument::fitToNormal() {
   /// setZoom(1.0);
@@ -285,7 +275,7 @@ void DrawDoument::keyPressEvent(QKeyEvent * e) {
        }
     }
     //// qDebug() <<  __FUNCTION__ << " - e->key()" << e->key() << " lastkeyMETA:" << lastkeyMETA;
-    if (lastkeyMETA) {
+    if (lastkeyMETA || e->isAutoRepeat() ) {
          if (Qt::Key_PageUp == e->key() ) {
                 //// qDebug() <<  "salire su page scroll";
                 e->accept();
@@ -301,7 +291,8 @@ void DrawDoument::keyPressEvent(QKeyEvent * e) {
             if (Qt::Key_Up == e->key() ) {
                 scaleFaktor = scaleFaktor + 0.05;
                 if (scaleFaktor < 0.22 || scaleFaktor > 10) {
-                 scaleFaktor =9.9;
+                 scaleFaktor = 9.9;
+                 //// this->setZoom(scaleFaktor);
                 }
                 emit newdata();
                 e->accept();
@@ -311,6 +302,7 @@ void DrawDoument::keyPressEvent(QKeyEvent * e) {
                 scaleFaktor = scaleFaktor - 0.05;
                 if (scaleFaktor < 0.22 || scaleFaktor > 10) {
                  scaleFaktor =0.23;
+                 //// this->setZoom(scaleFaktor);
                 }
                 emit newdata();
                 e->accept();
@@ -318,21 +310,15 @@ void DrawDoument::keyPressEvent(QKeyEvent * e) {
             }
          }
 
-        if (Qt::Key_Home == e->key()) {
-          qDebug() <<  "Qt::Key_Home";
-        }
         e->accept();
         //// qDebug() <<  __FUNCTION__ << " ende - e->isAutoRepeat()" << e->isAutoRepeat();
 }
 
 void DrawDoument::contextMenuEvent(QContextMenuEvent * event) {
   QMenu * menu = new QMenu(this);
-  //// menu->addAction(tr("Open File html"), this, SLOT(OpenFile()));
+  menu->addAction(tr("Open File html"), this, SLOT(OpenFile()));
   menu->addAction(tr("Swap page format"), this, SLOT(triggerFormat()));
   menu->addAction(tr("Fit size to Page"), this, SLOT(fitToLarge()));
-  ////menu->addAction(tr("Reset zoom to 1:1"), this, SLOT(fitToNormal()));
-  ////menu->addAction(tr("Zoom in CTRL++"), this, SLOT(zoomIn()));
-  ////menu->addAction(tr("Zoom out CTRL+-"), this, SLOT(zoomOut()));
   menu->exec(event->globalPos());
   delete menu;
 }
@@ -340,16 +326,7 @@ void DrawDoument::contextMenuEvent(QContextMenuEvent * event) {
 
 /*
  *
- * void DrawDoument::setZoom(const qreal value) {
-  if (value < 0.22 || value > 10) {
-    return;
-  } else {
-    qDebug() << "### setZoom " << value;
-    scaleFaktor = value;
-    adjustScrollbars();
-    viewport()->update();
-  }
-}
+ *
 
 
 
@@ -375,7 +352,7 @@ void DrawDoument::OpenFile() {
     buf->LoadFile(file);
     doc->setHtml(buf->data());
     buf->~StreamBuf();
-    newdata();
+    emit newdata();
   }
 }
 
@@ -389,7 +366,33 @@ void DrawDoument::LoadFile() {
       this->OpenFile();
         return;
     }
-    newdata();
+    emit newdata();
 }
 
 
+void DrawDoument::setZoom(const qreal value) {
+  if (value < 0.22 || value > 10) {
+      scaleFaktor = 1.3;
+  } else {
+    qDebug() << "### setZoom " << value;
+    scaleFaktor = value;
+    adjustScrollbars();
+    viewport()->update();
+  }
+  QTimer::singleShot(150, this, SLOT(updateslow()));
+}
+
+void DrawDoument::fitToLarge() {
+  qDebug() <<  __FUNCTION__;
+  qreal scaleFaktor = 4;
+#ifndef QT_NO_GRAPHICSEFFECT
+   qDebug() <<  __FUNCTION__ << " QT_NO_GRAPHICSEFFECT";
+#endif
+       QSizeF vdocument = doc->pageSize();
+      qreal posibel = viewport()->width();
+      QRect screens = QApplication::desktop()->availableGeometry();
+      int largox = screens.width() / 2;
+      int altox = screens.height() / 2;
+      qDebug() <<  largox << "x" << altox << " innrt:" << (posibel / vdocument.width() * 1.3) << "x";
+      setZoom((posibel / vdocument.width() * 2));
+}

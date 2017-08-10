@@ -60,7 +60,7 @@ public slots:
     void updateslow();
     void updatedoc(QRectF area);
     void LoadFile();
-    //// void setZoom( const qreal value );
+    void setZoom( const qreal value );
     /// void zoomIn();
     /// void zoomOut();
      void OpenFile();
