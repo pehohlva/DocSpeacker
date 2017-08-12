@@ -14,14 +14,6 @@ LANGUAGE	= C++
 DEFINES += NDEBUG THREAD_SAFE=1 TEMP_STORE=2
 CONFIG += c++11 release QMAKE_CXXFLAGS_WARN_ON=-w QMAKE_CFLAGS_WARN_ON=-w
 LIBS += -lz
-
-
-
-DISTFILES += \
-    qt.conf
-
-RESOURCES += \
-    qt.qrc
     
     
 CONFIG   += qt warn_off silence release
@@ -33,11 +25,14 @@ INCLUDEPATH += $$PWD $$PWD/include
 
 
 SOURCES += $$PWD/html5.cpp $$PWD/cld/lang/languages.cc $$PWD/cld/basicore_cld.cpp
+
 # stay calm html5_global.h \
-HEADERS += $$PWD/html5.h \
+HEADERS += $$PWD/include/html5.h \
         $$PWD/include/languages.pb.h \
         $$PWD/include/port.h \
         $$PWD/include/datamodelqchar.h \
+        $$PWD/include/gzipwriter.h \
+        $$PWD/include/gzipreader.h \
         $$PWD/include/datalanghelp.h
 
 HEADERS +=  $$PWD/cld/cld_utf8statetable.h \
