@@ -26,10 +26,11 @@ INCLUDEPATH += $$PWD $$PWD/include
 
 SOURCES += $$PWD/html5.cpp $$PWD/cld/lang/languages.cc $$PWD/cld/basicore_cld.cpp
 
-# stay calm html5_global.h \
+# stay calm html5_global.h datalanguage.h is generated! but core from qlocale & association
 HEADERS += $$PWD/include/html5.h \
-        $$PWD/include/languages.pb.h \
         $$PWD/include/port.h \
+        $$PWD/include/datalanguage.h \ 
+        $$PWD/include/languages.pb.h \ 
         $$PWD/include/datamodelqchar.h \
         $$PWD/include/gzipwriter.h \
         $$PWD/include/gzipreader.h \
