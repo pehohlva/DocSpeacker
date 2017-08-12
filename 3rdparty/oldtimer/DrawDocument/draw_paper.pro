@@ -14,12 +14,25 @@ MOC_DIR = build
 RCC_DIR = build
 OBJECTS_DIR = build
 #
-QT += gui
+QT += gui xml
 QT += gui
 QT += widgets core network
  QT += xmlpatterns
 QT += opengl
 QT += printsupport
+
+
+# set not 1 to build whitout pdfium module
+USEPDFPLAY = 0
+contains( USEPDFPLAY , [l1] ):QT += pdfium
+contains( USEPDFPLAY , [l1] ):message(..ok load pdfium tool... )
+contains( USEPDFPLAY , [l1] ):DEFINES += LOADPDFIUMYES=$(USEPDFPLAY)
+
+
+
+
+
+
 
 SOURCES += main.cpp \
     drawdocument.cpp \
@@ -34,7 +47,8 @@ DISTFILES += \
     codetmp.txt \
     main_blob.txt \
     collo.txt \
-    index.html
+    index.html \
+    save-base.txt
 
 
 
