@@ -29,3 +29,11 @@ Eine Option für Multitasker oder Nutzer von Mobilgeräten.
 Eine gute Brücke, um Ihre Inhalte Migranten näherzubringen, die Schwierigkeiten dabei haben, Ihre Inhalte zu verstehen.
 Eine nützliche Hilfestellung für unzureichend alphabetisierte Menschen.
 Eine Verbesserung für Sehbehinderte.
+
+
+Testing:
+
+git clone --recursive git://github.com/foo/bar.git
+
+
+

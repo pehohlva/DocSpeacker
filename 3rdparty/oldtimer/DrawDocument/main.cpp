@@ -1,15 +1,11 @@
 
 #include <QApplication>
-#include "drawdocument.h"
 
+#include "drawapplication.h"
 
 
 int main(int argc, char *argv[])
 {
-  QApplication a(argc, argv);
-
-  DrawDoument xx;
-  xx.show();
-
+  DrawApplication a(argc, argv);
   return a.exec();
 }

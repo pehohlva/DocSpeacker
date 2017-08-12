@@ -18,7 +18,7 @@ DrawDoument::DrawDoument(QWidget * parent):
         doc(new QTextDocument()),
         portrait_mode(true) {
 
-        lastkeyMETA = false;
+        lastkeyMETA = false; ///
         CursorPosition = -1;
         doc->setPageSize(QSizeF(MM_TO_POINT(210), MM_TO_POINT(297)));
         htmlformat = doc->rootFrame()->frameFormat();
@@ -28,34 +28,64 @@ DrawDoument::DrawDoument(QWidget * parent):
         if (htmlformat.leftMargin() < 10) {
            this->updateDocument();
         }
+        strak = -1;
+
         this->setContentsMargins(0,0,0,0);
-        setAcceptDrops(true);
+        this->setAcceptDrops(true);
+        //// this->grabGesture(qt::SwipeGesture);
+          this->grabGesture(Qt::SwipeGesture,Qt::DontStartGestureOnChildren);
+        this->grabMouse();
         QTimer::singleShot(700, this, SLOT(LoadFile())); /// not overload painter...
         connect(doc->documentLayout(), SIGNAL(update(QRectF)),this, SLOT(updatedoc(QRectF)));
         connect(this, SIGNAL(newdata()),this, SLOT(updateslow()));
-        updateslow();
+        ///Qt::ScrollBarAlwaysOn
+         /// Qt::ZAxis
+         /// swip = new QNativeGestureEvent(Qt::ZoomNativeGesture,QPointF(0,0),QPointF(0,0));
+         updateslow();
 
 
+}
+
+bool DrawDoument::gestureEvent( QGestureEvent * e ) {
+  ////qreal postrackx = e->activeGestures()
+  qreal postracky =0;  /// e->pos().y(); e->activeGestures()
+  xtrackN << __FUNCTION__ << "swip pos->" <<  postracky << "x" << 333  <<"\r";
+  e->accept();
+  return true;
+}
+
+///  mac  trackpad https://support.apple.com/en-us/HT204895
+bool DrawDoument::gestureNative( QNativeGestureEvent * e ) {
+   QTextStream  xcout(stdout, QIODevice::WriteOnly);
+   QString dir;
+     if ( e->value() < 0) {
+         distanceswip = distanceswip - e->value();
+         setZoom( scaleFaktor - TRACKPADSTEEPS );  /// SCALING_STEEP = 0.075555555
+        dir = "zoom in";
+      } else {
+         distanceswip = distanceswip + e->value();
+         setZoom( scaleFaktor + TRACKPADSTEEPS );
+         dir = "zoom out";
+       }
+  xcout << "-----------------swip (" << e->value()  << ")" <<  dir << "x" << POINT_TO_MM(distanceswip) <<"\r";
+  e->accept();
+  return true;
 }
 
 bool DrawDoument::event( QEvent * e) {
-   const int xmac = e->type();
-     if (doc->documentLayout()->event(e)) {
-          qDebug() << "HEI is a doument event!!!!" <<  __FUNCTION__;
-      }
-    if (xmac == 197) {
-
-     }
-
- #ifdef QT_KEYPAD_NAVIGATION
-    if (QApplication::keypadNavigationEnabled()) {
-        qDebug() << "HEI is a keypadNav  event!!!!" <<  __FUNCTION__;
-      }
- #endif
-
-
-    return QAbstractScrollArea::event(e);
+  if ( e->type() == QEvent::NativeGesture ) {
+     return gestureNative(static_cast<QNativeGestureEvent*>(e));
+  }
+  strak = strak + 0.11; /// visual sleep?
+  const int xmac = e->type();
+  QTextStream  xcout(stdout, QIODevice::WriteOnly);
+  xcout << "E," <<strak << ":->" <<  __FUNCTION__ << " - " << xmac <<"\r";
+  return QAbstractScrollArea::event(e);
 }
+
+/*      if (doc->documentLayout()->event(e)) {
+          qDebug() << "HEI is a doument event!!!!" <<  __FUNCTION__;
+      } */
 
 void DrawDoument::updatedoc(QRectF area) {
 
@@ -99,9 +129,7 @@ void DrawDoument::paintEvent( QPaintEvent * ev ) {
 /*
 
 
-void DrawDoument::mousePressEvent(QMouseEvent * e) {
 
-}
 
 void DrawDoument::mouseDoubleClickEvent(QMouseEvent * e) {
 
@@ -115,6 +143,9 @@ void DrawDoument::mouseDoubleClickEvent(QMouseEvent * e) {
 
 */
 
+void DrawDoument::mousePressEvent(QMouseEvent * e) {
+   qDebug() << "->" <<  __FUNCTION__ << " - " << e->type();
+}
 
 void DrawDoument::adjustScrollbars() {
   ////  portrait - landscape
@@ -167,6 +198,9 @@ void DrawDoument::paintgopen(QPainter * painter , int wi , QColor co) {
 
 
 void DrawDoument::wheelEvent(QWheelEvent * e) {
+
+  ///// qDebug() << "->" <<  __FUNCTION__ << " - " << e->type();
+
      if (e->phase() !=Qt::ScrollEnd) {
       if (static_cast<QWheelEvent*>(e)->orientation() == Qt::Horizontal) {
             QApplication::sendEvent(horizontalScrollBar(), e);

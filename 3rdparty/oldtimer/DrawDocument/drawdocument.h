@@ -17,9 +17,11 @@ public:
 
 protected:
       bool event( QEvent * e);
-      void paintEvent(QPaintEvent *ev );
+      bool gestureEvent( QGestureEvent * e );
+      bool gestureNative( QNativeGestureEvent * e );
+      void paintEvent(QPaintEvent *ev ) Q_DECL_OVERRIDE;
       void paintEditPage( const int index  , QPainter * painter );
-      ///void mousePressEvent ( QMouseEvent *e );
+      void mousePressEvent ( QMouseEvent *e );
       ///void mouseDoubleClickEvent ( QMouseEvent *e );
       void adjustScrollbars();
       void wheelEvent (QWheelEvent * event);
@@ -47,6 +49,9 @@ private:
     QAbstractTextDocumentLayout *docLayout;
     int CursorPosition;
     bool Beeboncontroll;
+    qreal strak;
+    QTextStream xtrackN;
+    qreal distanceswip;
 
 
 signals:
