@@ -23,7 +23,7 @@ QT += printsupport
 
 
 # set not 1 to build whitout pdfium module
-USEPDFPLAY = 0
+USEPDFPLAY = 1
 contains( USEPDFPLAY , [l1] ):QT += pdfium
 contains( USEPDFPLAY , [l1] ):message(..ok load pdfium tool... )
 contains( USEPDFPLAY , [l1] ):DEFINES += LOADPDFIUMYES=$(USEPDFPLAY)
@@ -52,7 +52,7 @@ DISTFILES += \
 
 
 
-DNSPOP = $$system(which curl)
+CURLONBOARD = $$system(which curl)
 
 UNAME = $$system(uname -s)
 contains( UNAME, [lD]arwin ):message( This looks like Linux ($$UNAME) to me )

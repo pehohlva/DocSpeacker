@@ -763,11 +763,15 @@ uint TIDY_CALL       tidyConfigErrorCount( TidyDoc tdoc )
 */
 void TIDY_CALL         tidyErrorSummary( TidyDoc tdoc )
 {
-    return;
+    TidyDocImpl* impl = tidyDocToImpl( tdoc );
+    if ( impl )
+        ErrorSummary( impl );
 }
 void TIDY_CALL         tidyGeneralInfo( TidyDoc tdoc )
 {
-    return;
+    TidyDocImpl* impl = tidyDocToImpl( tdoc );
+    if ( impl )
+        GeneralInfo( impl );
 }
 
 
@@ -1060,6 +1064,10 @@ int         tidyDocSaveSink( TidyDocImpl* doc, TidyOutputSink* sink )
 
 int         tidyDocStatus( TidyDocImpl* doc )
 {
+    if ( doc->errors > 0 )
+        return 2;
+    if ( doc->warnings > 0 || doc->accessErrors > 0 )
+        return 1;
     return 0;
 }
 
@@ -1157,7 +1165,26 @@ int         tidyDocParseStream( TidyDocImpl* doc, StreamIn* in )
 
 int         tidyDocRunDiagnostics( TidyDocImpl* doc )
 {
-    return 0;
+    uint acclvl = cfg( doc, TidyAccessibilityCheckLevel );
+    Bool quiet = cfgBool( doc, TidyQuiet );
+    Bool force = cfgBool( doc, TidyForceOutput );
+
+    if ( !quiet )
+    {
+
+        ReportMarkupVersion( doc );
+        ReportNumWarnings( doc );
+    }
+    
+    if ( doc->errors > 0 && !force )
+        NeedsAuthorIntervention( doc );
+
+#if SUPPORT_ACCESSIBILITY_CHECKS
+     if ( acclvl > 0 )
+         AccessibilityChecks( doc );
+#endif
+
+     return tidyDocStatus( doc );
 }
 
 int         tidyDocCleanAndRepair( TidyDocImpl* doc )

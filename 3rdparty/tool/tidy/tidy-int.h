@@ -14,7 +14,7 @@
 
 */
 
-#include "tidy.h"
+#include "include/tidy.h"
 #include "config.h"
 #include "lexer.h"
 #include "tags.h"
