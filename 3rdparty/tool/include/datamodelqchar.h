@@ -38,7 +38,6 @@
 #include <qdebug.h>
 #include <QStringList>
 #include <QElapsedTimer>
-
 #include "datalanghelp.h"
 
 
@@ -65,6 +64,11 @@
     x \
     qDebug() << __FUNCTION__ << ":" << __LINE__ << " Elapsed time: " <<  CONCAT(sb_, __LINE__).elapsed() << " ms.";
     
+
+
+
+namespace LQT {
+
 
 struct Scrpt {
         QChar::Script script;
@@ -372,5 +376,9 @@ void RangeClass::wr_47854g76b64( const QString f )  {
                   ram->~RamStream();
 
 }
+
+
+}
+
 
 #endif

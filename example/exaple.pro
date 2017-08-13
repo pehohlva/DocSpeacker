@@ -1,12 +1,25 @@
+
+!include(../root.pri) {
+message( "root.pri  not found" )
+}
+
+#!include( ../3rdparty/tool/tool.pri ) {
+#message( "tool.pri not found" )
+#}
+
 TEMPLATE = app
 TARGET = oo
 DEPENDPATH += .
 INCLUDEPATH += .
-CONFIG += qt debug warn_off console
+CONFIG += qt debug warn_off console console
 DESTDIR	+= ./
 TEMPLATE = app
 CONFIG-=app_bundle
 HiView_SIGNATURE = HiHV
+
+
+include( ../3rdparty/tool/tool.pri )
+
 
 CONFIG += c++11
 CONFIG += QMAKE_CXXFLAGS_WARN_ON=-w QMAKE_CFLAGS_WARN_ON=-w
@@ -26,15 +39,24 @@ contains( USEPDFPLAY , [l1] ):message(..ok load pdfium tool... )
 contains( USEPDFPLAY , [l1] ):DEFINES += LOADPDFIUMYES=$(USEPDFPLAY)
 
 
-SOURCES += main.cpp
+LIBS += -lz
+#DEPENDPATH += $$BUILD_TREE_PATH $$PWD
+#INCLUDEPATH += $$BUILD_TREE_PATH $$PWD
+DEPENDPATH += $$PWD ../
+INCLUDEPATH += $$PWD ../
+
+LIBS += -L../lib -lhtml5
+
+SOURCES += main.cpp \
+    qindexlanguage.cpp \
+    qlsd2.cpp
 
 HEADERS += \
-    grabitem.h
+    grabitem.h \
+    qindexlanguage.h \
+    qlsd2.h
 
 DISTFILES +=
-
-
-
 
 
 CURLONBOARD = $$system(which curl)

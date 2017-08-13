@@ -4,3 +4,6 @@
 [submodule "3rdparty/qtspeech"]
 	path = 3rdparty/qtspeech
 	url = https://github.com/qt/qtspeech.git
+[submodule "3rdparty/QCLD2"]
+	path = 3rdparty/QCLD2
+	url = https://github.com/pehohlva/QCLD2

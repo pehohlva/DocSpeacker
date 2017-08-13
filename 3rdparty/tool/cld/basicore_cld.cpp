@@ -11,7 +11,7 @@ typedef struct {
   bool reliable;
 } RESULT;
 
-extern "C" {
+
   RESULT detectLanguageThunkInt(const char * src, bool is_plain_text) {
     bool do_allow_extended_languages = true;
     bool do_pick_summary_language = false;
@@ -49,7 +49,3 @@ extern "C" {
     res.reliable = is_reliable;
     return res;
   }
-}
-
-int main(int argc, char **argv) {
-}
